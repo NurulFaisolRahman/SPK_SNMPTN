@@ -34,7 +34,8 @@
                        <button type="submit" id="UpdateProdi" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
                      </div>
                     </div>
-                      </div></form>
+                      </div>
+                    </form>
                   </div>
                        <?php
                             }
@@ -71,6 +72,8 @@
                                 <td>
                                     <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdProdi'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
                                     <a HapusIdProdi=<?php echo $row['IdProdi'];?> class="btn btn-danger HapusProdi"><li class="fa fa-trash-o"></li> Hapus</a>
+                                    <a BobotKriteria=<?php echo "'".$row['NamaProdi']."'";?> class="btn btn-success BobotKriteria" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Bobot Kriteria</a>
+                                    <a BobotSubKriteria=<?php echo "'".$row['NamaProdi']."'";?> class="btn btn-warning BobotSubKriteria" data-toggle="modal" data-target="#my-modal3"><li class="fa fa-plus"></li> Bobot SubKriteria</a>
                                  </td>
                             </tr>
                                 <?php
@@ -101,6 +104,59 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
                             <button type="submit" id="TambahProdi" class="btn btn-info"> Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form>
+            <div class="modal fade" id="my-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">Perbandingan Bobot Kriteria</h4>
+                        </div>
+                        <div class="modal-body center">
+                            <div class="form-group">
+                              <input type="hidden" id="NamaProdiKriteria"  class="form-control">
+                              <div class="container-fluid">
+                                <?php
+                                  $DataKriteria = array();
+                                  foreach ($Kriteria as $row) {
+                                    array_push($DataKriteria, $row['NamaKriteria']);
+                                  }
+                                  $x = 0;
+                                  $counter = 0;
+                                  for ($i=$TotalKriteria-1; $i > 0; $i--) {
+                                    $y = $x;
+                                    for ($j=0; $j < $i; $j++) {
+                                      echo "<div class='row align-items-center'>";
+                                      $y = $y + 1;
+                                      $counter = $counter + 1;?>
+                                      <div class="col-sm-2">
+                                        <label><?php echo $DataKriteria[$x];?></label>
+                                      </div>
+                                      <div class="col-sm-8">
+                                        <select class="form-control" id="<?php echo "Bobot".$counter; ?>">
+                                        <?php for ($k=1; $k <= 9; $k++) {?>
+                                          <option value="<?php echo $k;?>"><?php echo $k;?></option>
+                                        <?php } ?>
+                                        </select>
+                                      </div>
+                                      <div class="col-sm-2">
+                                        <label><?php echo $DataKriteria[$y];?></label>
+                                      </div>
+                                    </div><br>
+                                    <?php }
+                                    $x = $x + 1;
+                                  }
+                                 ?>
+                             </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
+                            <button type="submit" id="SimpanBobotKriteria" class="btn btn-info"> Simpan</button>
                         </div>
                     </div>
                 </div>

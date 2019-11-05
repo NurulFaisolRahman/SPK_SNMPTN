@@ -52,7 +52,6 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title"> <a href="#" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Tambah</a></h3>
           <div class="box-tools pull-right">
              </div>
         </div>
@@ -94,33 +93,3 @@
       </div><!-- /.box -->
     </section><!-- /.content -->
 </div>
-<form>
-    <div class="modal fade" id="my-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Tambah SubKriteria</h4>
-                </div>
-                <div class="modal-body center">
-                  <div class="form-group">
-                      <label>Nama Kriteria</label>
-                      <select class="form-control" id="PilihanKriteria">
-                      <?php
-                        foreach ($Kriteria as $row) {?>
-                          <option value="<?php echo $row['IdKriteria']; ?>"><?php echo $row['NamaKriteria']; ?></option>
-                        <?php } ?>
-                      </select>
-                  </div>
-                    <div class="form-group">
-                        <label>Nama SubKriteria</label>
-                        <input type="text" id="NamaSubKriteriaBaru" class="form-control" required="" placeholder="Masukkan Nama SubKriteria">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
-                    <button type="submit" id="TambahSubKriteria" class="btn btn-info"> Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>

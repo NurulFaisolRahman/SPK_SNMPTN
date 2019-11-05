@@ -106,7 +106,8 @@ jQuery(document).ready(function($) {
       data	: DataSubKriteriaBaru,
       success	: function(pesan){
         if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/SubKriteria';
+          alert("Sukses");
+          window.location = 'http://localhost/SPK_SNMPTN/Admin/Kriteria';
         }
       }
     });
@@ -145,6 +146,69 @@ jQuery(document).ready(function($) {
       }
     });
     return false;
+  });
+
+  $("#TambahDataSiswa").click(function() {
+    var DataSiswaBaru = {
+      NomorPendaftaranBaru: $("#NomorPendaftaranBaru").val(),
+      NPSNSekolahBaru: $("#NPSNSekolahBaru").val(),
+      PilihanMinat: $('#PilihanMinat').find(":selected").val()
+    };
+    $.ajax({
+      type	: 'POST',
+      url		: 'http://localhost/SPK_SNMPTN/Admin/TambahSiswa',
+      data	: DataSiswaBaru,
+      success	: function(pesan){
+        if(pesan=='ok'){
+          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+        }
+      }
+    });
+    return false;
+  });
+
+  $("#UpdateSiswa").click(function() {
+    var DataEditSiswa = {
+      NomorPendaftaranLama: $("#NomorPendaftaranLama").val(),
+      EditNomorPendaftaran: $("#EditNomorPendaftaran").val(),
+      EditNPSNSekolah: $("#EditNPSNSekolah").val(),
+      PilihanEditMinat: $('#PilihanEditMinat').find(":selected").val()
+    };
+    $.ajax({
+      type	: 'POST',
+      url		: 'http://localhost/SPK_SNMPTN/Admin/UpdateSiswa',
+      data	: DataEditSiswa,
+      success	: function(pesan){
+        if(pesan=='ok'){
+          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+        }
+      }
+    });
+    return false;
+  });
+
+  $(document).on("click",".HapusSiswa",function(){
+    var HapusSiswa = { HapusSiswa: $(this).attr('HapusSiswa')};
+    $.ajax({
+      type	: 'POST',
+      url		: 'http://localhost/SPK_SNMPTN/Admin/HapusSiswa',
+      data	: HapusSiswa,
+      success	: function(pesan){
+        if(pesan=='ok'){
+          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+        }
+      }
+    });
+    return false;
+  });
+
+  $(document).on("click",".BobotKriteria",function(){
+    var NamaProdi = $(this).attr('BobotKriteria');
+    document.getElementById('NamaProdiKriteria').value = NamaProdi;
+  });
+
+  $("#SimpanBobotKriteria").click(function() {
+    alert($('#NamaProdiKriteria').val());
   });
 
 });

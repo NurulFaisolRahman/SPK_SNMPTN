@@ -3,26 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
 
-	public function index(){
-		$this->load->view('Login');
+	function __construct(){
+		parent::__construct();
+		if($this->session->userdata('Status') != "Login"){
+			redirect(base_url());
+		}
 	}
 
-	public function CekLogin(){
-  	$username = $_POST['Username'];
-  	$password = $_POST['Password'];
-		$this->load->database();
-		$CekLogin = $this->db->get_where('Akun', array('Username' => $username,'Password' => $password))->num_rows();
-		if($CekLogin == 0){
-  		echo "Username / Password Salah";
-  	}
-  	else{
-  		echo 'ok';
-  	}
+	public function index(){
+		// $this->load->view('Login');
 	}
 
 	public function Prodi(){
 		$this->load->database();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
+		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
+		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
 		$this->load->view('Header');
 		$this->load->view('Prodi',$Data);
 		$this->load->view('Footer');
@@ -100,6 +96,40 @@ class Admin extends CI_Controller {
 	public function HapusSubKriteria(){
 	  $this->load->database();
 	  $this->db->delete('SubKriteria', array('IdSubKriteria' => $_POST['HapusIdSubKriteria']));
+	  echo 'ok';
+	}
+
+	public function Siswa(){
+	  $this->load->database();
+		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
+		$Data['Siswa'] = $this->db->get('Siswa')->result_array();
+		$this->load->view('Header');
+	  $this->load->view('Siswa',$Data);
+	  $this->load->view('Footer');
+	}
+
+	public function TambahSiswa(){
+	  $this->load->database();
+	  $this->db->insert('Siswa', array(
+			'NomorPendaftaran' => $_POST['NomorPendaftaranBaru'],
+			'NPSNSekolah' => $_POST['NPSNSekolahBaru'],
+			'Minat' => $_POST['PilihanMinat']));
+	  echo 'ok';
+	}
+
+	public function UpdateSiswa(){
+	  $this->load->database();
+	  $this->db->where('NomorPendaftaran', $_POST['NomorPendaftaranLama']);
+	  $this->db->update(
+			'Siswa', array('NomorPendaftaran' => $_POST['EditNomorPendaftaran'],
+			'NPSNSekolah' => $_POST['EditNPSNSekolah'],
+			'Minat' => $_POST['PilihanEditMinat']));
+	  echo 'ok';
+	}
+
+	public function HapusSiswa(){
+	  $this->load->database();
+	  $this->db->delete('Siswa', array('NomorPendaftaran' => $_POST['HapusSiswa']));
 	  echo 'ok';
 	}
 

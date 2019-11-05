@@ -23,30 +23,32 @@
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+                <div class="navbar-custom-menu">
+                  <ul class="nav navbar-nav">
+                    <li>
+                      <a href="http://localhost/SPK_SNMPTN/Login/LogOut"><i class="fa fa-lock"> Log Out</i></a>
+                    </li>
+                  </ul>
+                </div>
             </nav>
         </header>
+        <?php
+          $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Admin/Siswa',
+                        'Program Studi' => 'http://localhost/SPK_SNMPTN/Admin/Prodi',
+                        'Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/Kriteria',
+                        'Sub Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/SubKriteria');
+         ?>
         <aside class="main-sidebar">
             <section class="sidebar">
-                <ul class="sidebar-menu">
-                    <li class="">
-                        <a href="http://localhost/SPK_SNMPTN/Admin/Prodi">
-                            <i class="fa fa-book"></i> <span><b>Program Studi</b></span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="sidebar-menu">
-                    <li class="">
-                        <a href="http://localhost/SPK_SNMPTN/Admin/Kriteria">
-                            <i class="fa fa-book"></i> <span><b>Kriteria</b></span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="sidebar-menu">
-                    <li class="">
-                        <a href="http://localhost/SPK_SNMPTN/Admin/SubKriteria">
-                            <i class="fa fa-book"></i> <span><b>Sub Kriteria</b></span>
-                        </a>
-                    </li>
-                </ul>
+                <?php
+                  foreach ($Menu as $key => $value) {?>
+                    <ul class="sidebar-menu">
+                        <li class="">
+                            <a href="<?php echo $value ?>">
+                                <i class="fa fa-book"></i> <span><b><?php echo $key ?></b></span>
+                            </a>
+                        </li>
+                    </ul>
+                <?php } ?>
             </section>
         </aside>

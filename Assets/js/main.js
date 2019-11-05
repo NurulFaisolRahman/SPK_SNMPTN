@@ -6,11 +6,11 @@ jQuery(document).ready(function($) {
                     };
   	$.ajax({
       type	: 'POST',
-  		url		: 'http://localhost/SPK_SNMPTN/Admin/CekLogin',
+  		url		: 'http://localhost/SPK_SNMPTN/Login/CekLogin',
   		data	: datalogin,
   		success	: function(pesan){
   			if(pesan=='ok'){
-  				window.location = 'http://localhost/SPK_SNMPTN/Admin/Prodi';
+  				window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
   			}
   			else{
   				alert(pesan);

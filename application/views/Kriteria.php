@@ -71,6 +71,7 @@
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
                             <a HapusIdKriteria=<?php echo $row['IdKriteria'];?> class="btn btn-danger HapusKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
+                            <a class="btn btn-success" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Tambah SubKriteria</a>
                          </td>
                     </tr>
                         <?php
@@ -101,6 +102,39 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
                     <button type="submit" id="TambahKriteria" class="btn btn-info"> Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form>
+    <div class="modal fade" id="my-modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Tambah SubKriteria</h4>
+                </div>
+                <div class="modal-body center">
+                  <div class="form-group">
+                      <label>Nama Kriteria</label>
+                      <b>TES</b>
+                      <select class="form-control" id="PilihanKriteria">
+                      <?php
+                        foreach ($Kriteria as $row) {?>
+                          <option value="<?php echo $row['IdKriteria']; ?>"><?php echo $row['NamaKriteria']; ?></option>
+                        <?php } ?>
+                      </select>
+                      <b>TES</b>
+                  </div>
+                    <div class="form-group">
+                        <label>Nama SubKriteria</label>
+                        <input type="text" id="NamaSubKriteriaBaru" class="form-control" required="" placeholder="Masukkan Nama SubKriteria">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
+                    <button type="submit" id="TambahSubKriteria" class="btn btn-info"> Simpan</button>
                 </div>
             </div>
         </div>
