@@ -35,16 +35,19 @@ jQuery(document).ready(function($) {
 
   $(document).on("click",".HapusProdi",function(){
     var HapusProdi = { HapusIdProdi: $(this).attr('HapusIdProdi')};
-  	$.ajax({
-      type	: 'POST',
-  		url		: 'http://localhost/SPK_SNMPTN/Admin/HapusProdi',
-  		data	: HapusProdi,
-      success	: function(pesan){
-  			if(pesan=='ok'){
-  				window.location = 'http://localhost/SPK_SNMPTN/Admin/Prodi';
-  			}
-  		}
-    });
+    var Konfirmasi = confirm("Yakin Ingin Menghapus Data?");
+    if (Konfirmasi == true) {
+      $.ajax({
+        type	: 'POST',
+    		url		: 'http://localhost/SPK_SNMPTN/Admin/HapusProdi',
+    		data	: HapusProdi,
+        success	: function(pesan){
+    			if(pesan=='ok'){
+    				window.location = 'http://localhost/SPK_SNMPTN/Admin/Prodi';
+    			}
+    		}
+      });
+    }
     return false;
   });
 
@@ -65,8 +68,8 @@ jQuery(document).ready(function($) {
 
   $("#UpdateKriteria").click(function() {
     var DataEditKriteria = { EditNamaKriteria: $("#EditNamaKriteria").val(),
-                          EditIdKriteria: $("#EditIdKriteria").val()
-                        };
+                          EditIdKriteria: $("#EditIdKriteria").val(),
+                          NamaKriteriaLama: $("#NamaKriteriaLama").val()};
     $.ajax({
       type	: 'POST',
       url		: 'http://localhost/SPK_SNMPTN/Admin/UpdateKriteria',
@@ -81,24 +84,37 @@ jQuery(document).ready(function($) {
   });
 
   $(document).on("click",".HapusKriteria",function(){
-    var HapusKriteria = { HapusIdKriteria: $(this).attr('HapusIdKriteria')};
-    $.ajax({
-      type	: 'POST',
-      url		: 'http://localhost/SPK_SNMPTN/Admin/HapusKriteria',
-      data	: HapusKriteria,
-      success	: function(pesan){
-        if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/Kriteria';
+    var Data = $(this).attr('HapusIdKriteria');
+    var Pisah = Data.split("|");
+    var HapusKriteria = { HapusIdKriteria: Pisah[0],HapusNamaKriteria: Pisah[1]};
+    var Konfirmasi = confirm("Yakin Ingin Menghapus Data?");
+    if (Konfirmasi == true) {
+      $.ajax({
+        type	: 'POST',
+        url		: 'http://localhost/SPK_SNMPTN/Admin/HapusKriteria',
+        data	: HapusKriteria,
+        success	: function(pesan){
+          if(pesan=='ok'){
+            window.location = 'http://localhost/SPK_SNMPTN/Admin/Kriteria';
+          }
         }
-      }
-    });
+      });
+    }
     return false;
   });
 
+  $(document).on("click",".TambahIdKriteriaSub",function(){
+    var IdProdi = $(this).attr('IdKriteriaSub');
+    document.getElementById('SimpanIdKriteriaSub').value = IdProdi;
+  });
+
   $("#TambahSubKriteria").click(function() {
+    var Data = $('#SimpanIdKriteriaSub').val();
+    var Pisah = Data.split("|");
     var DataSubKriteriaBaru = {
       NamaSubKriteriaBaru: $("#NamaSubKriteriaBaru").val(),
-      IdKriteriaBaru: $('#PilihanKriteria').find(":selected").val()
+      IdKriteriaSub: Pisah[0],
+      NamaKriteriaSub: Pisah[1]
     };
     $.ajax({
       type	: 'POST',
@@ -118,7 +134,7 @@ jQuery(document).ready(function($) {
     var DataEditSubKriteria = {
       EditNamaSubKriteria: $("#EditNamaSubKriteria").val(),
       EditIdSubKriteria: $("#EditIdSubKriteria").val(),
-      IdKriteriaBaru: $('#PilihanEditKriteria').find(":selected").val()
+      NamaSubKriteriaLama: $("#NamaSubKriteriaLama").val()
     };
     $.ajax({
       type	: 'POST',
@@ -134,38 +150,43 @@ jQuery(document).ready(function($) {
   });
 
   $(document).on("click",".HapusSubKriteria",function(){
-    var HapusSubKriteria = { HapusIdSubKriteria: $(this).attr('HapusIdSubKriteria')};
-    $.ajax({
-      type	: 'POST',
-      url		: 'http://localhost/SPK_SNMPTN/Admin/HapusSubKriteria',
-      data	: HapusSubKriteria,
-      success	: function(pesan){
-        if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/SubKriteria';
+    var Data = $(this).attr('HapusIdSubKriteria');
+    var Pisah = Data.split("|");
+    var HapusSubKriteria = { HapusIdSubKriteria: Pisah[0],NamaSubKriteria: Pisah[1]};
+    var Konfirmasi = confirm("Yakin Ingin Menghapus Data?");
+    if (Konfirmasi == true) {
+      $.ajax({
+        type	: 'POST',
+        url		: 'http://localhost/SPK_SNMPTN/Admin/HapusSubKriteria',
+        data	: HapusSubKriteria,
+        success	: function(pesan){
+          if(pesan=='ok'){
+            window.location = 'http://localhost/SPK_SNMPTN/Admin/SubKriteria';
+          }
         }
-      }
-    });
+      });
+    }
     return false;
   });
 
-  $("#TambahDataSiswa").click(function() {
-    var DataSiswaBaru = {
-      NomorPendaftaranBaru: $("#NomorPendaftaranBaru").val(),
-      NPSNSekolahBaru: $("#NPSNSekolahBaru").val(),
-      PilihanMinat: $('#PilihanMinat').find(":selected").val()
-    };
-    $.ajax({
-      type	: 'POST',
-      url		: 'http://localhost/SPK_SNMPTN/Admin/TambahSiswa',
-      data	: DataSiswaBaru,
-      success	: function(pesan){
-        if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
-        }
-      }
-    });
-    return false;
-  });
+  // $("#TambahDataSiswa").click(function() {
+  //   var DataSiswaBaru = {
+  //     NomorPendaftaranBaru: $("#NomorPendaftaranBaru").val(),
+  //     NPSNSekolahBaru: $("#NPSNSekolahBaru").val(),
+  //     PilihanMinat: $('#PilihanMinat').find(":selected").val()
+  //   };
+  //   $.ajax({
+  //     type	: 'POST',
+  //     url		: 'http://localhost/SPK_SNMPTN/Admin/TambahSiswa',
+  //     data	: DataSiswaBaru,
+  //     success	: function(pesan){
+  //       if(pesan=='ok'){
+  //         window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+  //       }
+  //     }
+  //   });
+  //   return false;
+  // });
 
   $("#UpdateSiswa").click(function() {
     var DataEditSiswa = {
@@ -189,16 +210,19 @@ jQuery(document).ready(function($) {
 
   $(document).on("click",".HapusSiswa",function(){
     var HapusSiswa = { HapusSiswa: $(this).attr('HapusSiswa')};
-    $.ajax({
-      type	: 'POST',
-      url		: 'http://localhost/SPK_SNMPTN/Admin/HapusSiswa',
-      data	: HapusSiswa,
-      success	: function(pesan){
-        if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+    var Konfirmasi = confirm("Yakin Ingin Menghapus Data?");
+    if (Konfirmasi == true) {
+      $.ajax({
+        type	: 'POST',
+        url		: 'http://localhost/SPK_SNMPTN/Admin/HapusSiswa',
+        data	: HapusSiswa,
+        success	: function(pesan){
+          if(pesan=='ok'){
+            window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
+          }
         }
-      }
-    });
+      });
+    }
     return false;
   });
 

@@ -26,15 +26,9 @@
               <div class="box-body">
                     <div class="row">
             <div class="col-md-12 form-group">
-                <label>Nama Kriteria</label>
-                <select class="form-control" id="PilihanEditKriteria">
-                <?php
-                  foreach ($Kriteria as $data) {?>
-                    <option value="<?php echo $data['IdKriteria']; ?>"><?php echo $data['NamaKriteria']; ?></option>
-                  <?php } ?>
-                </select>
                 <label>Nama SubKriteria</label>
                 <input type="hidden" id="EditIdSubKriteria" value="<?php echo $row['IdSubKriteria'];?>" class="form-control" required="">
+                <input type="hidden" id="NamaSubKriteriaLama" value="<?php echo $row['NamaSubKriteria'];?>" class="form-control" required="">
                 <input type="text" id="EditNamaSubKriteria" value="<?php echo $row['NamaSubKriteria'];?>" class="form-control" required="">
                 </div>
              <div class="col-md-12 form-group">
@@ -78,7 +72,7 @@
                         <td><?php echo $row['NamaSubKriteria'];?></td>
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdSubKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
-                            <a HapusIdSubKriteria=<?php echo $row['IdSubKriteria'];?> class="btn btn-danger HapusSubKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
+                            <a HapusIdSubKriteria=<?php echo $row['IdSubKriteria']."|".$row['NamaSubKriteria'];?> class="btn btn-danger HapusSubKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
                          </td>
                     </tr>
                         <?php

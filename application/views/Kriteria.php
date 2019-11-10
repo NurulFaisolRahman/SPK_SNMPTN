@@ -28,6 +28,7 @@
             <div class="col-md-12 form-group">
                 <label>Nama Kriteria</label>
                 <input type="hidden" id="EditIdKriteria" value="<?php echo $row['IdKriteria'];?>" class="form-control" required="">
+                <input type="hidden" id="NamaKriteriaLama" value="<?php echo $row['NamaKriteria'];?>" class="form-control" required="">
                 <input type="text" id="EditNamaKriteria" value="<?php echo $row['NamaKriteria'];?>" class="form-control" required="">
                 </div>
              <div class="col-md-12 form-group">
@@ -70,8 +71,8 @@
                         <td><?php echo $row['NamaKriteria'];?></td>
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
-                            <a HapusIdKriteria=<?php echo $row['IdKriteria'];?> class="btn btn-danger HapusKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
-                            <a class="btn btn-success" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Tambah SubKriteria</a>
+                            <a HapusIdKriteria=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-danger HapusKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
+                            <a IdKriteriaSub=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-success TambahIdKriteriaSub" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Tambah SubKriteria</a>
                          </td>
                     </tr>
                         <?php
@@ -113,22 +114,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Tambah SubKriteria</h4>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Sub Kriteria</h4>
                 </div>
                 <div class="modal-body center">
-                  <div class="form-group">
-                      <label>Nama Kriteria</label>
-                      <b>TES</b>
-                      <select class="form-control" id="PilihanKriteria">
-                      <?php
-                        foreach ($Kriteria as $row) {?>
-                          <option value="<?php echo $row['IdKriteria']; ?>"><?php echo $row['NamaKriteria']; ?></option>
-                        <?php } ?>
-                      </select>
-                      <b>TES</b>
-                  </div>
                     <div class="form-group">
-                        <label>Nama SubKriteria</label>
+                        <input type="hidden" id="SimpanIdKriteriaSub"  class="form-control">
+                        <label>Nama Sub Kriteria</label>
                         <input type="text" id="NamaSubKriteriaBaru" class="form-control" required="" placeholder="Masukkan Nama SubKriteria">
                     </div>
                 </div>

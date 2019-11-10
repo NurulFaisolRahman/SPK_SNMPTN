@@ -7,7 +7,7 @@
             $config = mysqli_connect("localhost", "root", "","spk");
             error_reporting(0);
             $id=$_GET['id'];
-            $sql="SELECT  * FROM Siswa where NomorPendaftaran='$id' ";
+            $sql="SELECT  * FROM DataSiswa where NomorPendaftaran='$id' ";
             if (!$result = mysqli_query($config, $sql)){
             die('Error:'.mysqli_error($config));
             }  else {
@@ -35,8 +35,11 @@
                 <select class="form-control" id="PilihanEditMinat">
                 <?php
                   foreach ($Prodi as $data) {?>
-                    <option value="<?php echo $data['NamaProdi']; ?>"><?php echo $data['NamaProdi']; ?></option>
-                  <?php } ?>
+                    <option value="<?php echo $data['NamaProdi']; ?>"
+                      <?php if ($row['Minat'] == $data['IdProdi']) {
+                        echo "selected";
+                      } ?>><?php echo $data['NamaProdi']; ?></option>
+                <?php } ?>
                 </select>
                 </div>
              <div class="col-md-12 form-group">
@@ -80,7 +83,7 @@
                         <td><?php echo $no ;?></td>
                         <td><?php echo $row['NomorPendaftaran'];?></td>
                         <td><?php echo $row['NPSNSekolah'];?></td>
-                        <td><?php echo $row['Minat'];?></td>
+                        <td><?php echo $row['NamaProdi'];?></td>
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['NomorPendaftaran'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
                             <a HapusSiswa=<?php echo $row['NomorPendaftaran'];?> class="btn btn-danger HapusSiswa"><li class="fa fa-trash-o"></li> Hapus</a>
@@ -98,7 +101,7 @@
       </div><!-- /.box -->
     </section><!-- /.content -->
 </div>
-<form>
+<form method="post" action="http://localhost/SPK_SNMPTN/Admin/TambahSiswa">
     <div class="modal fade" id="my-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -108,25 +111,31 @@
                 <div class="modal-body center">
                   <div class="form-group">
                       <label>Nomor Pendaftaran</label>
-                      <input type="text" id="NomorPendaftaranBaru" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
+                      <input type="text" name="NomorPendaftaran" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
                   </div>
                   <div class="form-group">
                       <label>NPSN Sekolah</label>
-                      <input type="text" id="NPSNSekolahBaru" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
+                      <input type="text" name="NPSNSekolah" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
                   </div>
                   <div class="form-group">
                       <label>Minat</label>
-                      <select class="form-control" id="PilihanMinat">
+                      <select class="form-control" name="Minat">
                       <?php
                         foreach ($Prodi as $data) {?>
-                          <option value="<?php echo $data['NamaProdi']; ?>"><?php echo $data['NamaProdi']; ?></option>
+                          <option value="<?php echo $data['IdProdi']; ?>"><?php echo $data['NamaProdi']; ?></option>
                         <?php } ?>
                       </select>
                   </div>
+                  <?php for ($i = 3; $i < count($FormSiswa); $i++) {?>
+                    <div class="form-group">
+                        <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
+                        <input type="text" name="<?php echo $FormSiswa[$i]['COLUMN_NAME'];?>" class="form-control" required="">
+                    </div>
+                  <?php }?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
-                    <button type="submit" id="TambahDataSiswa" class="btn btn-info"> Simpan</button>
+                    <button type="submit" class="btn btn-info"> Simpan</button>
                 </div>
             </div>
         </div>
