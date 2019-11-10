@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 03, 2019 at 04:08 PM
+-- Generation Time: Nov 10, 2019 at 05:19 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -44,6 +44,30 @@ INSERT INTO `Akun` (`Id`, `Username`, `Password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `DataSiswa`
+--
+
+CREATE TABLE `DataSiswa` (
+  `NomorPendaftaran` varchar(50) NOT NULL,
+  `NPSNSekolah` varchar(50) NOT NULL,
+  `Minat` int(2) NOT NULL,
+  `IND` varchar(30) DEFAULT NULL,
+  `ING` varchar(30) DEFAULT NULL,
+  `MAT` varchar(30) DEFAULT NULL,
+  `Prestasi` varchar(30) DEFAULT NULL,
+  `Akreditasi` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `DataSiswa`
+--
+
+INSERT INTO `DataSiswa` (`NomorPendaftaran`, `NPSNSekolah`, `Minat`, `IND`, `ING`, `MAT`, `Prestasi`, `Akreditasi`) VALUES
+('V180k6c3a18W7oaiP9XH7', 'H2sLaa0ttCzDC-_YyMusZ', 6, '85', '84', '86', '2', '8');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Kriteria`
 --
 
@@ -57,9 +81,9 @@ CREATE TABLE `Kriteria` (
 --
 
 INSERT INTO `Kriteria` (`IdKriteria`, `NamaKriteria`) VALUES
-(1, 'Mata Pelajaran'),
-(2, 'Prestasi'),
-(3, 'Akreditasi');
+(21, 'MataPelajaran'),
+(24, 'Prestasi'),
+(25, 'Akreditasi');
 
 -- --------------------------------------------------------
 
@@ -77,7 +101,8 @@ CREATE TABLE `Prodi` (
 --
 
 INSERT INTO `Prodi` (`IdProdi`, `NamaProdi`) VALUES
-(1, 'Teknik Informatika');
+(6, 'Teknik Informatika'),
+(7, 'Teknik Industri');
 
 -- --------------------------------------------------------
 
@@ -96,8 +121,9 @@ CREATE TABLE `SubKriteria` (
 --
 
 INSERT INTO `SubKriteria` (`IdKriteria`, `IdSubKriteria`, `NamaSubKriteria`) VALUES
-(1, 1, 'Matematika'),
-(1, 2, 'Biologi');
+(21, 16, 'IND'),
+(21, 17, 'ING'),
+(21, 18, 'MAT');
 
 --
 -- Indexes for dumped tables
@@ -141,19 +167,19 @@ ALTER TABLE `Akun`
 -- AUTO_INCREMENT for table `Kriteria`
 --
 ALTER TABLE `Kriteria`
-  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `Prodi`
 --
 ALTER TABLE `Prodi`
-  MODIFY `IdProdi` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdProdi` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `SubKriteria`
 --
 ALTER TABLE `SubKriteria`
-  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
