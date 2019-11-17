@@ -152,7 +152,10 @@ jQuery(document).ready(function($) {
   $(document).on("click",".HapusSubKriteria",function(){
     var Data = $(this).attr('HapusIdSubKriteria');
     var Pisah = Data.split("|");
-    var HapusSubKriteria = { HapusIdSubKriteria: Pisah[0],NamaSubKriteria: Pisah[1]};
+    var HapusSubKriteria = { HapusIdSubKriteria: Pisah[0],
+                             NamaSubKriteria: Pisah[1],
+                             IdKriteria: Pisah[2],
+                             NamaKriteria: Pisah[3]};
     var Konfirmasi = confirm("Yakin Ingin Menghapus Data?");
     if (Konfirmasi == true) {
       $.ajax({
@@ -166,45 +169,6 @@ jQuery(document).ready(function($) {
         }
       });
     }
-    return false;
-  });
-
-  // $("#TambahDataSiswa").click(function() {
-  //   var DataSiswaBaru = {
-  //     NomorPendaftaranBaru: $("#NomorPendaftaranBaru").val(),
-  //     NPSNSekolahBaru: $("#NPSNSekolahBaru").val(),
-  //     PilihanMinat: $('#PilihanMinat').find(":selected").val()
-  //   };
-  //   $.ajax({
-  //     type	: 'POST',
-  //     url		: 'http://localhost/SPK_SNMPTN/Admin/TambahSiswa',
-  //     data	: DataSiswaBaru,
-  //     success	: function(pesan){
-  //       if(pesan=='ok'){
-  //         window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
-  //       }
-  //     }
-  //   });
-  //   return false;
-  // });
-
-  $("#UpdateSiswa").click(function() {
-    var DataEditSiswa = {
-      NomorPendaftaranLama: $("#NomorPendaftaranLama").val(),
-      EditNomorPendaftaran: $("#EditNomorPendaftaran").val(),
-      EditNPSNSekolah: $("#EditNPSNSekolah").val(),
-      PilihanEditMinat: $('#PilihanEditMinat').find(":selected").val()
-    };
-    $.ajax({
-      type	: 'POST',
-      url		: 'http://localhost/SPK_SNMPTN/Admin/UpdateSiswa',
-      data	: DataEditSiswa,
-      success	: function(pesan){
-        if(pesan=='ok'){
-          window.location = 'http://localhost/SPK_SNMPTN/Admin/Siswa';
-        }
-      }
-    });
     return false;
   });
 
@@ -231,8 +195,9 @@ jQuery(document).ready(function($) {
     document.getElementById('NamaProdiKriteria').value = NamaProdi;
   });
 
-  $("#SimpanBobotKriteria").click(function() {
-    alert($('#NamaProdiKriteria').val());
-  });
+  // $("#Hitung").click(function() {
+  //   alert("tes");
+    // $('.HasilPerhitungan').load("DetailPerhitungan.php");
+  // });
 
 });

@@ -6,8 +6,8 @@
         <?php
             $config = mysqli_connect("localhost", "root", "","spk");
             error_reporting(0);
-            $id=$_GET['id'];
-            $sql="SELECT  * FROM DataSiswa where NomorPendaftaran='$id' ";
+            $NomorPendaftaran = $_GET['NomorPendaftaran'];
+            $sql="SELECT  * FROM DataSiswa where NomorPendaftaran='$NomorPendaftaran' ";
             if (!$result = mysqli_query($config, $sql)){
             die('Error:'.mysqli_error($config));
             }  else {
@@ -22,28 +22,34 @@
             <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
           </div>
         </div>
-            <form>
+            <form method="post" action="http://localhost/SPK_SNMPTN/Admin/UpdateSiswa">
               <div class="box-body">
                     <div class="row">
             <div class="col-md-12 form-group">
-                <input type="hidden" id="NomorPendaftaranLama" value="<?php echo $row['NomorPendaftaran'];?>" class="form-control" required="">
+                <input type="hidden" name="NomorPendaftaranLama" value="<?php echo $row['NomorPendaftaran'];?>" class="form-control" required="">
                 <label>Nomor Pendaftaran</label>
-                <input type="text" id="EditNomorPendaftaran" value="<?php echo $row['NomorPendaftaran'];?>" class="form-control" required="">
+                <input type="text" name="NomorPendaftaran" value="<?php echo $row['NomorPendaftaran'];?>" class="form-control" required="">
                 <label>NPSN Sekolah</label>
-                <input type="text" id="EditNPSNSekolah" value="<?php echo $row['NPSNSekolah'];?>" class="form-control" required="">
+                <input type="text" name="NPSNSekolah" value="<?php echo $row['NPSNSekolah'];?>" class="form-control" required="">
                 <label>Minat</label>
-                <select class="form-control" id="PilihanEditMinat">
+                <select class="form-control" name="Minat">
                 <?php
                   foreach ($Prodi as $data) {?>
-                    <option value="<?php echo $data['NamaProdi']; ?>"
+                    <option value="<?php echo $data['IdProdi']; ?>"
                       <?php if ($row['Minat'] == $data['IdProdi']) {
                         echo "selected";
                       } ?>><?php echo $data['NamaProdi']; ?></option>
                 <?php } ?>
                 </select>
+                <?php for ($i = 3; $i < count($FormSiswa); $i++) { $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];?>
+                  <div class="form-group">
+                      <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
+                      <input type="text" name="<?php echo $NamaKolom;?>" value="<?php echo $row[$NamaKolom];?>" class="form-control" required="">
+                  </div>
+                <?php }?>
                 </div>
              <div class="col-md-12 form-group">
-               <button type="submit" id="UpdateSiswa" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
+               <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
              </div>
             </div>
               </div></form>
@@ -85,7 +91,7 @@
                         <td><?php echo $row['NPSNSekolah'];?></td>
                         <td><?php echo $row['NamaProdi'];?></td>
                         <td>
-                            <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['NomorPendaftaran'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
+                            <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?NomorPendaftaran=<?php echo $row['NomorPendaftaran'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
                             <a HapusSiswa=<?php echo $row['NomorPendaftaran'];?> class="btn btn-danger HapusSiswa"><li class="fa fa-trash-o"></li> Hapus</a>
                          </td>
                     </tr>

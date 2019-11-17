@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 10, 2019 at 05:19 PM
+-- Generation Time: Nov 17, 2019 at 04:28 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -63,7 +63,9 @@ CREATE TABLE `DataSiswa` (
 --
 
 INSERT INTO `DataSiswa` (`NomorPendaftaran`, `NPSNSekolah`, `Minat`, `IND`, `ING`, `MAT`, `Prestasi`, `Akreditasi`) VALUES
-('V180k6c3a18W7oaiP9XH7', 'H2sLaa0ttCzDC-_YyMusZ', 6, '85', '84', '86', '2', '8');
+('V180k6c3a18W7oaiP9XH7', 'H2sLaa0ttCzDC-_YyMusZ', 6, '85', '84', '86', NULL, NULL),
+('a6kjpVtY61jk5h3SLOtw2', 'uO_WhwyuecayvKVVMAYts', 6, '88', '90', '87', NULL, NULL),
+('KIT8LwxO_Hn2DUv0lbh1m', 'mQfzfULtYmD29Ybz5Vt-2', 6, '85', '85', '89', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -82,8 +84,8 @@ CREATE TABLE `Kriteria` (
 
 INSERT INTO `Kriteria` (`IdKriteria`, `NamaKriteria`) VALUES
 (21, 'MataPelajaran'),
-(24, 'Prestasi'),
-(25, 'Akreditasi');
+(25, 'Akreditasi'),
+(26, 'Prestasi');
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,7 @@ ALTER TABLE `Akun`
 -- AUTO_INCREMENT for table `Kriteria`
 --
 ALTER TABLE `Kriteria`
-  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `Prodi`
@@ -179,7 +181,7 @@ ALTER TABLE `Prodi`
 -- AUTO_INCREMENT for table `SubKriteria`
 --
 ALTER TABLE `SubKriteria`
-  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

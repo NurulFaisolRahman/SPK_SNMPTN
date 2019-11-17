@@ -17,8 +17,6 @@ class Admin extends CI_Controller {
 	public function Prodi(){
 		$this->load->database();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
-		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
-		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
 		$this->load->view('Header');
 		$this->load->view('Prodi',$Data);
 		$this->load->view('Footer');
@@ -91,7 +89,7 @@ class Admin extends CI_Controller {
 
 	public function SubKriteria(){
 	  $this->load->database();
-		$query = "SELECT Kriteria.NamaKriteria,SubKriteria.IdSubKriteria,SubKriteria.NamaSubKriteria FROM Kriteria,SubKriteria WHERE Kriteria.IdKriteria = SubKriteria.IdKriteria";
+		$query = "SELECT Kriteria.NamaKriteria,SubKriteria.IdKriteria,SubKriteria.IdSubKriteria,SubKriteria.NamaSubKriteria FROM Kriteria,SubKriteria WHERE Kriteria.IdKriteria = SubKriteria.IdKriteria";
 	  $Data['SubKriteria'] = $this->db->query($query)->result_array();
 		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
 		$this->load->view('Header');
@@ -126,9 +124,15 @@ class Admin extends CI_Controller {
 	  $this->load->database();
 	  $this->db->delete('SubKriteria', array('IdSubKriteria' => $_POST['HapusIdSubKriteria']));
 		$NamaSubKriteria = $_POST['NamaSubKriteria'];
+		$NamaKriteria = $_POST['NamaKriteria'];
 		$query = "ALTER TABLE DataSiswa DROP COLUMN $NamaSubKriteria";
 	  $this->db->query($query);
-	  echo 'ok';
+		$CekKolomKriteria = $this->db->get_where('SubKriteria', array('IdKriteria' => $_POST['IdKriteria']))->num_rows();
+		if ($CekKolomKriteria == 0) {
+			$query = "ALTER TABLE DataSiswa ADD COLUMN $NamaKriteria Varchar(30)";
+		  $this->db->query($query);
+		}
+		echo 'ok';
 	}
 
 	public function Siswa(){
@@ -150,19 +154,28 @@ class Admin extends CI_Controller {
 	}
 
 	public function UpdateSiswa(){
-	  $this->load->database();
+		$this->load->database();
 	  $this->db->where('NomorPendaftaran', $_POST['NomorPendaftaranLama']);
-	  $this->db->update(
-			'DataSiswa', array('NomorPendaftaran' => $_POST['EditNomorPendaftaran'],
-			'NPSNSekolah' => $_POST['EditNPSNSekolah'],
-			'Minat' => $_POST['PilihanEditMinat']));
-	  echo 'ok';
+		array_shift($_POST);
+	  $this->db->update('DataSiswa', $_POST);
+		redirect(base_url('Admin/Siswa'));
 	}
 
 	public function HapusSiswa(){
 	  $this->load->database();
 	  $this->db->delete('DataSiswa', array('NomorPendaftaran' => $_POST['HapusSiswa']));
 	  echo 'ok';
+	}
+
+	public function Perhitungan(){
+		$this->load->database();
+		$query = "SELECT Prodi.NamaProdi FROM Prodi WHERE Prodi.IdProdi IN (SELECT DataSiswa.Minat FROM DataSiswa)";
+	  $Data['Prodi'] = $this->db->query($query)->result_array();
+		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
+		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
+		$this->load->view('Header');
+	  $this->load->view('Perhitungan',$Data);
+	  $this->load->view('Footer');
 	}
 
 }
