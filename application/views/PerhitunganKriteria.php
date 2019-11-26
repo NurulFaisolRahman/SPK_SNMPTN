@@ -67,7 +67,7 @@
     //Membuat Array Normalisasi Bobot
     $NormalisasiBobot = array();
     foreach ($TotalBobotKriteriaHorizontal as $key => $value) {
-      array_push($NormalisasiBobot, round($value/$TotalKriteriaHorizontal,2));
+      array_push($NormalisasiBobot, round($value/$TotalKriteriaHorizontal,3));
     }
     //Menyimpan Bobot Setiap Kriteria
     $BobotSetiapKriteria = array();
@@ -76,7 +76,6 @@
       $BobotSetiapKriteria[$key['IdKriteria']] = $NormalisasiBobot[$Counter];
       $Counter = $Counter + 1;
     }
-    print_r($BobotSetiapKriteria);
     //Membuat Array Perkalian Bobot
     $Eigen = array();
     $HasilKaliBobot = array();
@@ -85,10 +84,10 @@
     for ($i=0; $i < $TotalKriteria; $i++) {
       $TampungNilai = 0;
       for ($j=0; $j < $TotalKriteria; $j++) {
-        $TampungNilai = $TampungNilai + (round($DataBobotKriteria[$i][$j]*$NormalisasiBobot[$j],2));
+        $TampungNilai = $TampungNilai + (round($DataBobotKriteria[$i][$j]*$NormalisasiBobot[$j],3));
       }
       array_push($HasilKaliBobot, $TampungNilai);
-      array_push($Eigen, round($TampungNilai/$NormalisasiBobot[$i],2));
+      array_push($Eigen, round($TampungNilai/$NormalisasiBobot[$i],9));
       $TotalHasilKaliBobot = $TotalHasilKaliBobot + $Eigen[$i];
     }
     $Rata2HasilKaliBobot = round($TotalHasilKaliBobot/$TotalKriteria,2);
@@ -149,10 +148,10 @@
                   echo "<td style='text-align:center;'>Hasil Pembobotan = 1</td>";
                 }
                 else if ($j == $TotalKriteria+3) {
-                  echo "<td style='text-align:center;'>Hasil Kali</td>";
+                  echo "<td style='text-align:center;'>Vector Eigen</td>";
                 }
                 else if ($j == $TotalKriteria+4) {
-                  echo "<td style='text-align:center;'>Ternormalisasi Bobot = ".$Rata2HasilKaliBobot."</td>";
+                  echo "<td style='text-align:center;'>Ternormalisasi Terbobot = ".$Rata2HasilKaliBobot."</td>";
                 }
                 else {
                   echo "<td></td>";

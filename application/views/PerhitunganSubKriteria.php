@@ -1,4 +1,5 @@
 <?php
+  $DataBobotSiswaSubKriteria = array();
   foreach ($Kriteria as $key) {
     $DataSubKriteria = $this->db->get_where('SubKriteria', array('IdKriteria' => $key['IdKriteria']))->result_array();
     if (!empty($DataSubKriteria)) {
@@ -73,9 +74,15 @@
         $TotalSubKriteriaHorizontal = $TotalSubKriteriaHorizontal + $Tampung;
         array_push($TotalBobotSubKriteriaHorizontal, round($Tampung/$JumlahSubKriteria,2));
       }
+      //Menyimpan Bobot Parsial Subkriteria
+      $WadahBobotParsial = array();
+      foreach ($TotalBobotSubKriteriaHorizontal as $Key => $value) {
+        array_push($WadahBobotParsial, $value);
+      }
+      $DataBobotSiswaSubKriteria[$key['IdKriteria']] = $WadahBobotParsial;
       //Membuat Array Normalisasi Bobot
       $NormalisasiBobotSubKriteria = array();
-      foreach ($TotalBobotSubKriteriaHorizontal as $key => $value) {
+      foreach ($TotalBobotSubKriteriaHorizontal as $Key => $value) {
         array_push($NormalisasiBobotSubKriteria, round($value/$TotalSubKriteriaHorizontal,2));
       }
       //Membuat Array Perkalian Bobot

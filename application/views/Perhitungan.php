@@ -154,25 +154,30 @@
                 <?php
                 if (!empty($_POST)) {
                   $BobotDataSiswa = array();
-                  $Nampung = array();
+                  $TampungBobotSubKriteria = array();
                   foreach ($BobotSetiapKriteria as $key => $value) {
+                    $Nampung = array();
                     $CekPunyaSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->num_rows();
                     if ($CekPunyaSub == 0) {
                       array_push($BobotDataSiswa, $value);
                     }
                     else{
                       $DataSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->result_array();
-
                       foreach ($DataSub as $Kunci => $Nilai) {
                         array_push($Nampung, $value);
                       }
+                      $TampungBobotSubKriteria[$key] = $Nampung;
                     }
                   }
-                  array_reverse($Nampung);
-                  $Counter = 0;
-                  foreach ($Nampung as $key => $value) {
-                    array_push($BobotDataSiswa, round($value*$TotalBobotSubKriteriaHorizontal[$Counter],3));
-                    $Counter = $Counter + 1;
+                  foreach ($DataBobotSiswaSubKriteria as $Key => $Value) {
+                    foreach ($TampungBobotSubKriteria as $key => $value) {
+                      array_reverse($value);
+                      $Counter = 0;
+                      foreach ($value as $kunci => $data) {
+                        array_push($BobotDataSiswa, round($data*$Value[$Counter],3));
+                        $Counter = $Counter + 1;
+                      }
+                    }
                   }
                  ?>
                 <table class="table table-bordered table-responsive">
@@ -186,7 +191,7 @@
                       <?php
                         for ($i=0; $i < count($FormSiswa)-2; $i++) {
                           if ($i == 0) {
-                            echo "<td colspan=3></td>";
+                            echo "<td colspan=3 style='text-align:center;'>Bobot =======></td>";
                           }
                           else {
                             echo "<td style='text-align:center;'>".$BobotDataSiswa[$i-1]."</td>";
