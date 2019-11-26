@@ -195,9 +195,4 @@ jQuery(document).ready(function($) {
     document.getElementById('NamaProdiKriteria').value = NamaProdi;
   });
 
-  // $("#Hitung").click(function() {
-  //   alert("tes");
-    // $('.HasilPerhitungan').load("DetailPerhitungan.php");
-  // });
-
 });

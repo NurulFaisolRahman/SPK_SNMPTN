@@ -173,6 +173,9 @@ class Admin extends CI_Controller {
 	  $Data['Prodi'] = $this->db->query($query)->result_array();
 		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
 		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
+	  $Data['Siswa'] = $this->db->get('DataSiswa')->result_array();
+		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
+	  $Data['FormSiswa'] = $this->db->query($query)->result_array();
 		$this->load->view('Header');
 	  $this->load->view('Perhitungan',$Data);
 	  $this->load->view('Footer');

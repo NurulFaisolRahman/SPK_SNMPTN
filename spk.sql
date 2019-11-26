@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2019 at 04:28 PM
+-- Generation Time: Nov 26, 2019 at 01:42 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.20
 
@@ -51,21 +51,21 @@ CREATE TABLE `DataSiswa` (
   `NomorPendaftaran` varchar(50) NOT NULL,
   `NPSNSekolah` varchar(50) NOT NULL,
   `Minat` int(2) NOT NULL,
-  `IND` varchar(30) DEFAULT NULL,
-  `ING` varchar(30) DEFAULT NULL,
-  `MAT` varchar(30) DEFAULT NULL,
-  `Prestasi` varchar(30) DEFAULT NULL,
-  `Akreditasi` varchar(30) DEFAULT NULL
+  `NilaiKeterampilan` varchar(30) DEFAULT NULL,
+  `RangkingKelas` varchar(30) DEFAULT NULL,
+  `Absensi` varchar(30) DEFAULT NULL,
+  `Matematika` varchar(30) DEFAULT NULL,
+  `Fisika` varchar(30) DEFAULT NULL,
+  `Kimia` varchar(30) DEFAULT NULL,
+  `Biologi` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `DataSiswa`
 --
 
-INSERT INTO `DataSiswa` (`NomorPendaftaran`, `NPSNSekolah`, `Minat`, `IND`, `ING`, `MAT`, `Prestasi`, `Akreditasi`) VALUES
-('V180k6c3a18W7oaiP9XH7', 'H2sLaa0ttCzDC-_YyMusZ', 6, '85', '84', '86', NULL, NULL),
-('a6kjpVtY61jk5h3SLOtw2', 'uO_WhwyuecayvKVVMAYts', 6, '88', '90', '87', NULL, NULL),
-('KIT8LwxO_Hn2DUv0lbh1m', 'mQfzfULtYmD29Ybz5Vt-2', 6, '85', '85', '89', NULL, NULL);
+INSERT INTO `DataSiswa` (`NomorPendaftaran`, `NPSNSekolah`, `Minat`, `NilaiKeterampilan`, `RangkingKelas`, `Absensi`, `Matematika`, `Fisika`, `Kimia`, `Biologi`) VALUES
+('1', '1', 6, '1', '1', '1', '2', '2', '2', '2');
 
 -- --------------------------------------------------------
 
@@ -83,9 +83,10 @@ CREATE TABLE `Kriteria` (
 --
 
 INSERT INTO `Kriteria` (`IdKriteria`, `NamaKriteria`) VALUES
-(21, 'MataPelajaran'),
-(25, 'Akreditasi'),
-(26, 'Prestasi');
+(27, 'NilaiAkademik'),
+(28, 'NilaiKeterampilan'),
+(29, 'RangkingKelas'),
+(30, 'Absensi');
 
 -- --------------------------------------------------------
 
@@ -123,9 +124,10 @@ CREATE TABLE `SubKriteria` (
 --
 
 INSERT INTO `SubKriteria` (`IdKriteria`, `IdSubKriteria`, `NamaSubKriteria`) VALUES
-(21, 16, 'IND'),
-(21, 17, 'ING'),
-(21, 18, 'MAT');
+(27, 31, 'Matematika'),
+(27, 32, 'Fisika'),
+(27, 33, 'Kimia'),
+(27, 34, 'Biologi');
 
 --
 -- Indexes for dumped tables
@@ -169,7 +171,7 @@ ALTER TABLE `Akun`
 -- AUTO_INCREMENT for table `Kriteria`
 --
 ALTER TABLE `Kriteria`
-  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `IdKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `Prodi`
@@ -181,7 +183,7 @@ ALTER TABLE `Prodi`
 -- AUTO_INCREMENT for table `SubKriteria`
 --
 ALTER TABLE `SubKriteria`
-  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `IdSubKriteria` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,10 +12,13 @@
       }
       //Membuat Array Untuk Perbandingan Bobot SubKriteria
       $BobotSubKriteria = array();
-      for ($i=1; $i <= $JumlahSubKriteria; $i++) {
+      $Iterasi = 0;
+      for ($i=$JumlahSubKriteria-1; $i > 0; $i--) {
+        $Iterasi = $Iterasi + $i;
+      }
+      for ($i=1; $i <= $Iterasi; $i++) {
         array_push($BobotSubKriteria, $_POST[$NamaKriteria.$i]);
       }
-      $CopyBobotSubKriteria = $BobotSubKriteria;
       //Membuat Matrik Perbandingan Bobot SubKriteria
       $DataBobotSubKriteria = array();
       for ($i=0; $i < $JumlahSubKriteria; $i++) {
@@ -28,10 +31,18 @@
             array_push($IsiBobot, array_shift($BobotSubKriteria));
           }
           else {
-            array_push($IsiBobot, round(1/array_shift($CopyBobotSubKriteria),2));
+            array_push($IsiBobot, 0);
           }
         }
         array_push($DataBobotSubKriteria, $IsiBobot);
+      }
+      for ($i=0; $i < $JumlahSubKriteria; $i++) {
+        $IsiBobot = array();
+        for ($j=0; $j < $JumlahSubKriteria; $j++) {
+          if ($j < $i) {
+            $DataBobotSubKriteria[$i][$j] = round(1/$DataBobotSubKriteria[$j][$i],2);
+          }
+        }
       }
       //Membuat Array Total Bobot Secara Vertikal
       $TotalBobotSubKriteriaVertical = array();
@@ -60,7 +71,7 @@
           $Tampung = $Tampung + $DataBobotSubKriteriaNormalisasi[$i][$j];
         }
         $TotalSubKriteriaHorizontal = $TotalSubKriteriaHorizontal + $Tampung;
-        array_push($TotalBobotSubKriteriaHorizontal, round($Tampung,2));
+        array_push($TotalBobotSubKriteriaHorizontal, round($Tampung/$JumlahSubKriteria,2));
       }
       //Membuat Array Normalisasi Bobot
       $NormalisasiBobotSubKriteria = array();
@@ -75,10 +86,10 @@
       for ($i=0; $i < $JumlahSubKriteria; $i++) {
         $TampungNilai = 0;
         for ($j=0; $j < $JumlahSubKriteria; $j++) {
-          $TampungNilai = $TampungNilai + (round($DataBobotSubKriteria[$i][$j]*$NormalisasiBobotSubKriteria[$j],2));
+          $TampungNilai = $TampungNilai + (round($DataBobotSubKriteria[$i][$j]*$TotalBobotSubKriteriaHorizontal[$j],2));
         }
         array_push($HasilKaliBobot, $TampungNilai);
-        array_push($Eigen, round($TampungNilai/$NormalisasiBobotSubKriteria[$i],2));
+        array_push($Eigen, round($TampungNilai/$TotalBobotSubKriteriaHorizontal[$i],2));
         $TotalHasilKaliBobot = $TotalHasilKaliBobot + $Eigen[$i];
       }
       $Rata2HasilKaliBobot = round($TotalHasilKaliBobot/$JumlahSubKriteria,2);
@@ -127,22 +138,19 @@
           <?php
             for ($i=0; $i < $JumlahSubKriteria+1; $i++) {
               echo "<tr>";
-              for ($j=0; $j < $JumlahSubKriteria+5; $j++) {
+              for ($j=0; $j < $JumlahSubKriteria+4; $j++) {
                 if ($i == 0) {
                   if ($j > 0 && $j < $JumlahSubKriteria+1) {
                     echo "<td style='text-align:center;'>".$TampungSubKriteria[$j][0]."</td>";
                   }
                   else if ($j == $JumlahSubKriteria+1) {
-                    echo "<td style='text-align:center;'>Total = ".$TotalSubKriteriaHorizontal."</td>";
+                    echo "<td style='text-align:center;'>Bobot Parsial</td>";
                   }
                   else if ($j == $JumlahSubKriteria+2) {
-                    echo "<td style='text-align:center;'>Normalisasi = 1</td>";
+                    echo "<td style='text-align:center;'>Vektor Eigen</td>";
                   }
                   else if ($j == $JumlahSubKriteria+3) {
-                    echo "<td style='text-align:center;'>Hasil Kali</td>";
-                  }
-                  else if ($j == $JumlahSubKriteria+4) {
-                    echo "<td style='text-align:center;'>Eigen, Rata2 = ".$Rata2HasilKaliBobot."</td>";
+                    echo "<td style='text-align:center;'>Ternormalisasi Bobot = ".$Rata2HasilKaliBobot."</td>";
                   }
                   else {
                     echo "<td></td>";
@@ -154,12 +162,9 @@
                       echo "<td style='text-align:center;'>".$TotalBobotSubKriteriaHorizontal[$i-1]."</td>";
                     }
                     else if ($j == $JumlahSubKriteria+2) {
-                      echo "<td style='text-align:center;'>".$NormalisasiBobotSubKriteria[$i-1]."</td>";
-                    }
-                    else if ($j == $JumlahSubKriteria+3) {
                       echo "<td style='text-align:center;'>".$HasilKaliBobot[$i-1]."</td>";
                     }
-                    else if ($j == $JumlahSubKriteria+4) {
+                    else if ($j == $JumlahSubKriteria+3) {
                       echo "<td style='text-align:center;'>".$Eigen[$i-1]."</td>";
                     }
                     else {
