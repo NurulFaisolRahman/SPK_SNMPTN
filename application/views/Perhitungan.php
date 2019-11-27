@@ -180,11 +180,17 @@
                     }
                   }
                  ?>
+                 <?php
+                  include 'PerhitunganElectre.php';
+                  $NamaKolomKriteriaDanSub = array();
+                  $NomorPendaftaranSiswa = array();
+                ?>
+                 <div class="table-responsive">
                 <table class="table table-bordered table-responsive">
                   <tbody>
                     <tr>
                       <?php foreach ($FormSiswa as $key => $value): ?>
-                        <th style="text-align:center;"><?php echo $value['COLUMN_NAME'] ?></th>
+                        <th style="text-align:center;"><?php echo $value['COLUMN_NAME'];array_push($NamaKolomKriteriaDanSub,$value['COLUMN_NAME']);?></th>
                       <?php endforeach; ?>
                     </tr>
                     <tr>
@@ -199,9 +205,9 @@
                         }
                       ?>
                     </tr>
-                    <tr>
                       <?php $NamaProdi = ""; ?>
                       <?php for ($i=0; $i < count($Siswa); $i++) {?>
+                        <tr>
                         <?php foreach ($Siswa[$i] as $key => $value): ?>
                           <td style="text-align:center;">
                             <?php
@@ -218,14 +224,88 @@
                               }
                               else{
                                 echo $value;
+                                if ($key == 'NomorPendaftaran') {
+                                  array_push($NomorPendaftaranSiswa, $value);
+                                }
                               }
                               ?>
                           </td>
                         <?php endforeach; ?>
+                        </tr>
                       <?php } ?>
-                    </tr>
+                      <tr>
+                        <?php
+                          for ($i=0; $i < count($FormSiswa)-2; $i++) {
+                            if ($i == 0) {
+                              echo "<td colspan=3 style='text-align:center;'>Nilai X =======></td>";
+                            }
+                            else {
+                              echo "<td style='text-align:center;'>".$Nilai_X[$i-1]."</td>";
+                            }
+                          }
+                        ?>
+                      </tr>
                   </tbody>
                 </table>
+                </div>
+                <h4>Langkah 1 Normalisasi Matrik</h4>
+                <!-- // Menampilkan Matrik Ternormalisasi -->
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                <?php
+                for ($Baris=0; $Baris < count($Matrik)+1; $Baris++) {
+                  echo "<tr>";
+                  for ($Kolom=0; $Kolom < count($Matrik[0])+1; $Kolom++) {
+                    if ($Baris == 0) {
+                      if ($Kolom == 0) {
+                        echo "<td>Nomor Pendaftaran</td>";
+                      }
+                      else {
+                        echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+2]."</td>";
+                      }
+                    }
+                    else {
+                      if ($Kolom == 0) {
+                        echo "<td>".$NomorPendaftaranSiswa[$Baris-1]."</td>";
+                      }
+                      else {
+                        echo "<td>".$MatrikNormalisasi[$Baris-1][$Kolom-1]."</td>";
+                      }
+                    }
+                  }
+                  echo "</tr>";
+                }
+                echo "</tbody></table></div>";?>
+                <h4>Langkah 2 Perkalian Bobot Dengan Matrik Ternormalisasi</h4>
+                <!-- // Menampilkan Matrik Terboboti -->
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+                  <?php
+      				 	for ($Baris=0; $Baris < count($Matrik)+1; $Baris++) {
+      			 			echo "<tr>";
+      			 			for ($Kolom=0; $Kolom < count($Matrik[0])+1; $Kolom++) {
+      				 			if ($Baris == 0) {
+      				 				if ($Kolom == 0) {
+      				 					echo "<td>Nomor Pendaftaran</td>";
+      				 				}
+      				 				else {
+      				 					echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+2]."</td>";
+      				 				}
+      				 			}
+      				 			else {
+      				 				if ($Kolom == 0) {
+      				 					echo "<td>A".$NomorPendaftaranSiswa[$Baris-1]."</td>";
+      				 				}
+      				 				else {
+      				 					echo "<td>".$MatrikTerboboti[$Baris-1][$Kolom-1]."</td>";
+      				 				}
+      				 			}
+      				 		}
+      				 		echo "</tr>";
+      				 	}
+      				 	echo "</tbody></table></div>";?>
                 <?php } ?>
               </div>
         </div><!-- /.box-body -->
