@@ -1,4 +1,5 @@
 <?php
+  $Siswa = $this->db->get_where('DataSiswa', array('Minat' => $_POST['IDMinat']))->result_array();
   $Matrik = array();
   foreach ($Siswa as $key => $value) {
     $DataNilaiSiswa = array();
@@ -79,8 +80,9 @@
     array_push($MatrikDiscordance, $BarisDiscordance);
     }
     //Langkah 5 Menghitung Matrik Dominan Concordance dan Discordance
-    $NilaiThresholdConcordance = round($NilaiThresholdConcordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),1);
-    $NilaiThresholdDiscordance = round($NilaiThresholdDiscordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),1);
+    $NilaiThresholdConcordance = round($NilaiThresholdConcordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),2);
+    $NilaiThresholdDiscordance = round($NilaiThresholdDiscordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),2);
+    // echo "C = ".$NilaiThresholdConcordance." D = ".$NilaiThresholdDiscordance;
     $MatrikDominanConcordance = $MatrikConcordance;
     $MatrikDominanDiscordance = $MatrikDiscordance;
     for ($i = 0; $i < count($MatrikConcordance); $i++) {

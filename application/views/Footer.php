@@ -18,6 +18,26 @@
     });
   });
 
+  $(function () {
+    $('#Rangking').DataTable({
+      "paging": false,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+    });
+  });
+  $(function () {
+    $('#Perhitungan').DataTable({
+      "paging": false,
+      "lengthChange": true,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+    });
+  });
 </script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>

@@ -169,11 +169,10 @@ class Admin extends CI_Controller {
 
 	public function Perhitungan(){
 		$this->load->database();
-		$query = "SELECT Prodi.NamaProdi FROM Prodi WHERE Prodi.IdProdi IN (SELECT DataSiswa.Minat FROM DataSiswa)";
+		$query = "SELECT Prodi.IdProdi,Prodi.NamaProdi FROM Prodi WHERE Prodi.IdProdi IN (SELECT DataSiswa.Minat FROM DataSiswa)";
 	  $Data['Prodi'] = $this->db->query($query)->result_array();
 		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
 		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
-	  $Data['Siswa'] = $this->db->get('DataSiswa')->result_array();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
 	  $Data['FormSiswa'] = $this->db->query($query)->result_array();
 		$this->load->view('Header');

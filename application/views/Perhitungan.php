@@ -5,7 +5,7 @@
     <section class="content">
         <div class="box">
         <div class="box-body">
-              <table id="example1" class="table table-striped dataTable no-footer">
+              <table id="Perhitungan" class="table table-striped dataTable no-footer">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -14,25 +14,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php
-                    $no=1;
-                    foreach ($Prodi as $row) {
-                ?>
-
                     <tr>
-                        <td><?php echo $no ;?></td>
-                        <td><?php echo $row['NamaProdi'];?></td>
+                        <td><?php echo "1"?></td>
+                        <td>
+                          <select class="form-control" id="IdProdi">
+                            <?php
+                            foreach ($Prodi as $row) {?>
+                               <option value="<?=$row['IdProdi'];?>"><?=$row['NamaProdi'];?></option>
+                            <?php } ?>
+                          </select>
+                        </td>
                         <td>
                             <a class="btn btn-success" onclick="FormPerhitungan()"><li class="fa fa-plus"></li> Input Bobot</a>
                         </td>
                     </tr>
-                        <?php
-                $no++;
-                }?>
                 </tbody>
               </table>
               <button onclick="TabelPerbandingan()" class="btn btn-info"> <b>Show/HIde Tabel Perbandingan</b></button>
               <button onclick="PerhitunganANP()" class="btn btn-info"> <b>Show/HIde Perhitungan Bobot</b></button>
+              <button onclick="PerhitunganElectre()" class="btn btn-info"> <b>Show/HIde Perhitungan Electre</b></button>
               <table class="table table-bordered table-responsive" id="TabelPerbandingan" style="display: none;">
                 <tbody>
                   <tr class="bg-primary">
@@ -73,6 +73,7 @@
               <div id="FormPerhitungan" style="display: none;">
                 <form method="post">
                 <div class="form-group">
+                  <input type="hidden" id="IDMinat" name="IDMinat" class="form-control">
                   <input type="hidden" id="NamaProdiKriteria"  class="form-control">
                   <div class="container-fluid">
                     <h4><b>Bobot Kriteria</b></h4>
@@ -145,7 +146,8 @@
                       ?>
                  </div>
                  <button type="submit" class="btn btn-info"> <b>HITUNG</b></button>
-                </div>
+               </div>
+             </form>
                 </div>
                 <br><br>
                 <div id="PerhitunganANP" style="display: none;">
@@ -180,6 +182,7 @@
                     }
                   }
                  ?>
+                 <div id="PerhitunganElectre" style="display: none;">
                  <?php
                   include 'PerhitunganElectre.php';
                   $NamaKolomKriteriaDanSub = array();
@@ -205,7 +208,7 @@
                         }
                       ?>
                     </tr>
-                      <?php $NamaProdi = ""; ?>
+                      <?php $NamaProdi = "";?>
                       <?php for ($i=0; $i < count($Siswa); $i++) {?>
                         <tr>
                         <?php foreach ($Siswa[$i] as $key => $value): ?>
@@ -296,7 +299,7 @@
       				 			}
       				 			else {
       				 				if ($Kolom == 0) {
-      				 					echo "<td>A".$NomorPendaftaranSiswa[$Baris-1]."</td>";
+      				 					echo "<td>".$NomorPendaftaranSiswa[$Baris-1]."</td>";
       				 				}
       				 				else {
       				 					echo "<td>".$MatrikTerboboti[$Baris-1][$Kolom-1]."</td>";
@@ -359,23 +362,50 @@
                 <h4>Langkah 6</h4>
       				 	<h4>Menetukan Agregate Dominance Matrix</h4>
                 <div class="table-responsive">
-                <table class="table table-bordered">
+                <table id="Rangking" class="table table-striped dataTable no-footer">
+                  <thead>
+                    <tr>
+                    <?php for ($i=0; $i < count($MatrikAgregatDominan)+2; $i++) {
+                      if ($i == count($MatrikAgregatDominan)+1) {
+                        echo "<th>Rangking</th>";
+                      }
+                      if ($i == 0) {
+                        echo "<th>".$NamaKolomKriteriaDanSub[$i]."</th>";
+                      }
+                      if ($i != 0 && $i < count($MatrikAgregatDominan)+1){
+                        echo "<th>#</th>";
+                      }
+                    } ?>
+                    </tr>
+                  </thead>
                   <tbody>
-      				 	<?php
-                $HimpunanAlternatifTerbaik = array();
-      				 	for ($Baris=0; $Baris < count($MatrikAgregatDominan); $Baris++) {
-      			 			echo "<tr>";
-      			 			$TotalNilaiAlternatif = 0;
-      			 			for ($Kolom=0; $Kolom < count($MatrikAgregatDominan[0]); $Kolom++) {
-      			 				echo "<td>".$MatrikAgregatDominan[$Baris][$Kolom]."</td>";
-      			 				if ($Baris != $Kolom) {
-      			 					$TotalNilaiAlternatif = $TotalNilaiAlternatif + $MatrikAgregatDominan[$Baris][$Kolom];
-      			 				}
-      				 		}
-      				 		echo "</tr>";
-      				 		array_push($HimpunanAlternatifTerbaik, $TotalNilaiAlternatif);
-      				 	}
-      				 	echo "</tbody></table></div>";?>
+                  <?php
+                    $HimpunanAlternatifTerbaik = array();
+                    for ($Baris=0; $Baris < count($MatrikAgregatDominan); $Baris++) {
+                      echo "<tr>";
+                      $TotalNilaiAlternatif = 0;
+                      for ($Kolom=0; $Kolom < count($MatrikAgregatDominan[0])+2; $Kolom++) {
+                        if ($Kolom == 0) {
+                          echo "<td>".$NomorPendaftaranSiswa[$Baris]."</td>";
+                        }
+                        else{
+                          if ($Kolom < count($MatrikAgregatDominan[0])+1) {
+                            echo "<td>".$MatrikAgregatDominan[$Baris][$Kolom-1]."</td>";
+                          }
+                          if ($Kolom == count($MatrikAgregatDominan[0])+1) {
+                            echo "<td>".$TotalNilaiAlternatif."</td>";
+                          }
+                        }
+                        if ($Baris != $Kolom && $Kolom < count($MatrikAgregatDominan[0])) {
+                          $TotalNilaiAlternatif = $TotalNilaiAlternatif + $MatrikAgregatDominan[$Baris][$Kolom];
+                        }
+                      }
+                      echo "</tr>";
+                      array_push($HimpunanAlternatifTerbaik, $TotalNilaiAlternatif);
+                    }
+                  ?>
+                  </tbody>
+                </table></div></div>
                 <?php } ?>
               </div>
         </div><!-- /.box-body -->
@@ -393,6 +423,7 @@
   }
   function FormPerhitungan() {
     var x = document.getElementById("FormPerhitungan");
+    document.getElementById('IDMinat').value = $("#IdProdi").val();
     if (x.style.display === "none") {
       x.style.display = "grid";
     } else {
@@ -401,6 +432,14 @@
   }
   function PerhitunganANP() {
     var x = document.getElementById("PerhitunganANP");
+    if (x.style.display === "none") {
+      x.style.display = "grid";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  function PerhitunganElectre() {
+    var x = document.getElementById("PerhitunganElectre");
     if (x.style.display === "none") {
       x.style.display = "grid";
     } else {
