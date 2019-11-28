@@ -306,6 +306,76 @@
       				 		echo "</tr>";
       				 	}
       				 	echo "</tbody></table></div>";?>
+                <h4>Menghitung Matrik Concordance dan Discordance</h4>
+                <h4>Matrik Concordance</h4>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+      				 	<?php for ($Baris=0; $Baris < count($MatrikConcordance); $Baris++) {
+      			 			echo "<tr>";
+      			 			for ($Kolom=0; $Kolom < count($MatrikConcordance[0]); $Kolom++) {
+      			 				echo "<td>".$MatrikConcordance[$Baris][$Kolom]."</td>";
+      				 		}
+      				 		echo "</tr>";
+      				 	}
+      				 	echo "</tbody></table></div>";
+      				 	echo "<h4>Matrik Discordance</h4>";
+                echo "<div class='table-responsive'>";
+                echo "<table class='table table-bordered'>";
+                  echo "<tbody>";
+      				 	for ($Baris=0; $Baris < count($MatrikDiscordance); $Baris++) {
+      			 			echo "<tr>";
+      			 			for ($Kolom=0; $Kolom < count($MatrikDiscordance[0]); $Kolom++) {
+      			 				echo "<td>".$MatrikDiscordance[$Baris][$Kolom]."</td>";
+      				 		}
+      				 		echo "</tr>";
+      				 	}
+      				 	echo "</tbody></table></div>";?>
+                <h4>Menghitung Matriks Dominan Concordance dan Discordance</h4>
+                <h4>Matrik Dominan Concordance</h4>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+      				 	<?php for ($Baris=0; $Baris < count($MatrikDominanConcordance); $Baris++) {
+      			 			echo "<tr>";
+      			 			for ($Kolom=0; $Kolom < count($MatrikDominanConcordance[0]); $Kolom++) {
+      			 				echo "<td>".$MatrikDominanConcordance[$Baris][$Kolom]."</td>";
+      				 		}
+      				 		echo "</tr>";
+      				 	}
+      				 	echo "</tbody></table></div>";
+      				 	echo "<h4>Matrik Dominan Discordance</h4>";
+                echo "<div class='table-responsive'>";
+                echo "<table class='table table-bordered'>";
+                  echo "<tbody>";
+      				 	for ($Baris=0; $Baris < count($MatrikDominanDiscordance); $Baris++) {
+      			 			echo "<tr>";
+      			 			for ($Kolom=0; $Kolom < count($MatrikDominanDiscordance[0]); $Kolom++) {
+      			 				echo "<td>".$MatrikDominanDiscordance[$Baris][$Kolom]."</td>";
+      				 		}
+      				 		echo "</tr>";
+      				 	}
+      				 	echo "</tbody></table></div>";?>
+                <h4>Langkah 6</h4>
+      				 	<h4>Menetukan Agregate Dominance Matrix</h4>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <tbody>
+      				 	<?php
+                $HimpunanAlternatifTerbaik = array();
+      				 	for ($Baris=0; $Baris < count($MatrikAgregatDominan); $Baris++) {
+      			 			echo "<tr>";
+      			 			$TotalNilaiAlternatif = 0;
+      			 			for ($Kolom=0; $Kolom < count($MatrikAgregatDominan[0]); $Kolom++) {
+      			 				echo "<td>".$MatrikAgregatDominan[$Baris][$Kolom]."</td>";
+      			 				if ($Baris != $Kolom) {
+      			 					$TotalNilaiAlternatif = $TotalNilaiAlternatif + $MatrikAgregatDominan[$Baris][$Kolom];
+      			 				}
+      				 		}
+      				 		echo "</tr>";
+      				 		array_push($HimpunanAlternatifTerbaik, $TotalNilaiAlternatif);
+      				 	}
+      				 	echo "</tbody></table></div>";?>
                 <?php } ?>
               </div>
         </div><!-- /.box-body -->

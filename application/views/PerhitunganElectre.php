@@ -37,4 +37,77 @@
     }
     array_push($MatrikTerboboti, $PerkalianBobot);
   }
+  //Langkah 3 dan 4 Menghitung Matrik Concordance dan Discordance<
+  $MatrikConcordance = array();
+  $MatrikDiscordance = array();
+  $NilaiThresholdConcordance = 0;
+  $NilaiThresholdDiscordance = 0;
+  for ($i = 0; $i < count($Matrik); $i++) {
+    $BarisConcordance = array();
+    $BarisDiscordance = array();
+    for ($j = 0; $j < count($Matrik); $j++) {
+      if ($i != $j) {
+        $BobotConcordance = 0;
+        $HimpunanPenyebut = array();
+        $HimpunanPembilang = array();
+        for ($k = 0; $k < count($Matrik[0]); $k++) {
+          array_push($HimpunanPembilang, abs($MatrikTerboboti[$i][$k] - $MatrikTerboboti[$j][$k]));
+          if ($MatrikTerboboti[$i][$k] >= $MatrikTerboboti[$j][$k]) {
+            $BobotConcordance = $BobotConcordance + $BobotDataSiswa[$k];
+          }
+          else {
+            array_push($HimpunanPenyebut, abs($MatrikTerboboti[$i][$k] - $MatrikTerboboti[$j][$k]));
+          }
+        }
+        $NilaiThresholdConcordance = $NilaiThresholdConcordance + $BobotConcordance;
+        array_push($BarisConcordance, $BobotConcordance);
+        if (!empty($HimpunanPenyebut)) {
+          array_push($BarisDiscordance, (round(max($HimpunanPenyebut)/max($HimpunanPembilang),3)));
+          $NilaiThresholdDiscordance = $NilaiThresholdDiscordance + (round(max($HimpunanPenyebut)/max($HimpunanPembilang),3));
+        }
+        else{
+          array_push($BarisDiscordance, 0);
+        }
+
+      }
+      else {
+        array_push($BarisConcordance, "-");
+        array_push($BarisDiscordance, "-");
+      }
+    }
+    array_push($MatrikConcordance, $BarisConcordance);
+    array_push($MatrikDiscordance, $BarisDiscordance);
+    }
+    //Langkah 5 Menghitung Matrik Dominan Concordance dan Discordance
+    $NilaiThresholdConcordance = round($NilaiThresholdConcordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),1);
+    $NilaiThresholdDiscordance = round($NilaiThresholdDiscordance / (count($MatrikConcordance)*(count($MatrikConcordance)-1)),1);
+    $MatrikDominanConcordance = $MatrikConcordance;
+    $MatrikDominanDiscordance = $MatrikDiscordance;
+    for ($i = 0; $i < count($MatrikConcordance); $i++) {
+      for ($j = 0; $j < count($MatrikConcordance); $j++) {
+        if ($i != $j) {
+          if ($MatrikDominanConcordance[$i][$j] >= $NilaiThresholdConcordance) {
+            $MatrikDominanConcordance[$i][$j] = 1;
+          }
+          else {
+            $MatrikDominanConcordance[$i][$j] = 0;
+          }
+          if ($MatrikDominanDiscordance[$i][$j] >= $NilaiThresholdDiscordance) {
+            $MatrikDominanDiscordance[$i][$j] = 0;
+          }
+          else {
+            $MatrikDominanDiscordance[$i][$j] = 1;
+          }
+        }
+      }
+    }
+    //Langkah 6 Menetukan Agregat Dominan Matrik";
+    $MatrikAgregatDominan = $MatrikConcordance;
+    for ($i = 0; $i < count($MatrikConcordance); $i++) {
+      for ($j = 0; $j < count($MatrikConcordance); $j++) {
+        if ($i != $j) {
+          $MatrikAgregatDominan[$i][$j] = $MatrikDominanConcordance[$i][$j] * $MatrikDominanDiscordance[$i][$j];
+        }
+      }
+    }
  ?>
