@@ -2,9 +2,20 @@
     <section class="content-header">
         <h1>Perhitungan</h1>
     </section>
+    <?php
+      $NamaProgramStudi = array();
+      foreach ($Prodi as $key) {
+        $NamaProgramStudi[$key['IdProdi']] = $key['NamaProdi'];
+      }
+     ?>
     <section class="content">
         <div class="box">
         <div class="box-body">
+            <?php
+            if (!empty($_POST['IDMinat'])) {
+              $Pecah = explode("|",$_POST['IDMinat']);
+            }
+             ?>
               <table id="Perhitungan" class="table table-striped dataTable no-footer">
                 <thead>
                   <tr>
@@ -19,8 +30,12 @@
                         <td>
                           <select class="form-control" id="IdProdi">
                             <?php
-                            foreach ($Prodi as $row) {?>
-                               <option value="<?=$row['IdProdi'];?>"><?=$row['NamaProdi'];?></option>
+                            foreach ($FilterData as $row) {?>
+                               <option value="<?=$row['IdProdi']."|".$row['Tahun'];?>" <?php if (!empty($Pecah)) {
+                                 if ($Pecah[0] == $row['IdProdi']) {
+                                   echo "selected";
+                                 }
+                               } ?>><?=$NamaProgramStudi[$row['IdProdi']]." ".$row['Tahun'];?></option>
                             <?php } ?>
                           </select>
                         </td>
@@ -64,6 +79,12 @@
               <?php
                 //Membuat Array Untuk Nama2 Kriteria
                 $BobotPerbandingan = array(1,0.50,2,0.33,3,0.25,4,0.2,5,0.16,6,0.14,7,0.12,8,0.11,9);
+                $TextPerbandingan = array("Kedua Elemen Sama Pentingnya",0.50,"Nilai Tengah Diantara Dua Pendapat Yang Berdampingan",
+                "Elemen Yang Kanan Sedikit Lebih Penting Dari Pada Elemen Yang Kiri","Elemen Yang Kiri Sedikit Lebih Penting Dari Pada Elemen Yang Kanan",
+                 0.25,"Nilai Tengah Diantara Dua Pendapat Yang Berdampingan","Elemen Yang Kanan Lebih Penting Dari Pada Elemen Yang Kiri",
+                 "Elemen Yang Kiri Lebih Penting Dari Pada Elemen Yang Kanan",0.16,"Nilai Tengah Diantara Dua Pendapat Yang Berdampingan",
+                 "Elemen Yang Kanan Sangat Lebih Penting Dari Pada Elemen Yang Kiri","Elemen Yang Kiri Sangat Lebih Penting Dari Pada Elemen Yang Kanan",
+                 0.12,"Nilai Tengah Diantara Dua Pendapat Yang Berdampingan","Elemen Kanan Mutlak Lebih Penting","Elemen Kiri Mutlak Lebih Penting");
                 $DataKriteria = array();
                 array_push($DataKriteria, 'Dummy');
                 foreach ($Kriteria as $row) {
@@ -91,9 +112,9 @@
                           </div>
                           <div class="col-sm-8">
                             <select class="form-control" name="<?php echo "BobotKriteria".$counter; ?>">
-                              <?php foreach ($BobotPerbandingan as $key => $value): ?>
-                                <option value="<?php echo $value;?>"><?php echo $value;?></option>
-                              <?php endforeach; ?>
+                              <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
+                                <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
+                              <?php } ?>
                             </select>
                           </div>
                           <div class="col-sm-2">
@@ -129,9 +150,9 @@
                             </div>
                             <div class="col-sm-8">
                               <select class="form-control" name="<?php echo $key['NamaKriteria'].$counter; ?>">
-                              <?php foreach ($BobotPerbandingan as $Key => $value): ?>
-                                <option value="<?php echo $value;?>"><?php echo $value;?></option>
-                              <?php endforeach; ?>
+                                <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
+                                  <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
+                                <?php } ?>
                               </select>
                             </div>
                             <div class="col-sm-2">
@@ -193,14 +214,19 @@
                   <tbody>
                     <tr>
                       <?php foreach ($FormSiswa as $key => $value): ?>
-                        <th style="text-align:center;"><?php echo $value['COLUMN_NAME'];array_push($NamaKolomKriteriaDanSub,$value['COLUMN_NAME']);?></th>
+                        <th style="text-align:center;"><?php if ($value['COLUMN_NAME'] == 'IdProdi') {
+                          echo "Minat";
+                        } else {
+                          echo $value['COLUMN_NAME'];
+                        }
+                        ;array_push($NamaKolomKriteriaDanSub,$value['COLUMN_NAME']);?></th>
                       <?php endforeach; ?>
                     </tr>
                     <tr>
                       <?php
-                        for ($i=0; $i < count($FormSiswa)-2; $i++) {
+                        for ($i=0; $i < count($FormSiswa)-3; $i++) {
                           if ($i == 0) {
-                            echo "<td colspan=3 style='text-align:center;'>Bobot =======></td>";
+                            echo "<td colspan=4 style='text-align:center;'>Bobot =======></td>";
                           }
                           else {
                             echo "<td style='text-align:center;'>".$BobotDataSiswa[$i-1]."</td>";
@@ -214,7 +240,7 @@
                         <?php foreach ($Siswa[$i] as $key => $value): ?>
                           <td style="text-align:center;">
                             <?php
-                              if ($key == 'Minat') {
+                              if ($key == 'IdProdi') {
                                 if ($NamaProdi == "") {
                                   $query = "SELECT Prodi.NamaProdi FROM Prodi WHERE IdProdi = $value";
                               	  $Data = $this->db->query($query)->result_array();
@@ -238,9 +264,9 @@
                       <?php } ?>
                       <tr>
                         <?php
-                          for ($i=0; $i < count($FormSiswa)-2; $i++) {
+                          for ($i=0; $i < count($FormSiswa)-3; $i++) {
                             if ($i == 0) {
-                              echo "<td colspan=3 style='text-align:center;'>Nilai X =======></td>";
+                              echo "<td colspan=4 style='text-align:center;'>Nilai X =======></td>";
                             }
                             else {
                               echo "<td style='text-align:center;'>".$Nilai_X[$i-1]."</td>";

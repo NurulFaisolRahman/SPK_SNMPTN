@@ -1,9 +1,10 @@
 <?php
-  $Siswa = $this->db->get_where('DataSiswa', array('Minat' => $_POST['IDMinat']))->result_array();
+  $Pisah = explode("|",$_POST['IDMinat']);
+  $Siswa = $this->db->get_where('DataSiswa', array('IdProdi' => $Pisah[0], 'Tahun' => $Pisah[1]))->result_array();
   $Matrik = array();
   foreach ($Siswa as $key => $value) {
     $DataNilaiSiswa = array();
-    for ($i = 3; $i < count($FormSiswa); $i++) {
+    for ($i = 4; $i < count($FormSiswa); $i++) {
       $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];
       array_push($DataNilaiSiswa, $value[$NamaKolom]);
     }
@@ -23,8 +24,8 @@
   for ($i = 0; $i < count($Matrik); $i++) {
     $Nilai_R = array();
     for ($j = 0; $j < count($Matrik[0]); $j++) {
-      $Nilai = $Matrik[$i][$j]/$Nilai_X[$j];
-      array_push($Nilai_R, round($Nilai,5));
+      $Nilai = round($Matrik[$i][$j]/$Nilai_X[$j],5);
+      array_push($Nilai_R, $Nilai);
     }
     array_push($MatrikNormalisasi, $Nilai_R);
   }

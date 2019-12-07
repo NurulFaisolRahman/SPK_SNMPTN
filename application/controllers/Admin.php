@@ -5,7 +5,7 @@ class Admin extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		if($this->session->userdata('Status') != "Login"){
+		if($this->session->userdata('Status') != "Login" || $this->session->userdata('User') != "admin"){
 			redirect(base_url());
 		}
 	}
@@ -38,7 +38,7 @@ class Admin extends CI_Controller {
 	public function HapusProdi(){
 		$this->load->database();
 		$this->db->delete('Prodi', array('IdProdi' => $_POST['HapusIdProdi']));
-		$this->db->delete('DataSiswa', array('Minat' => $_POST['HapusIdProdi']));
+		$this->db->delete('DataSiswa', array('IdProdi' => $_POST['HapusIdProdi']));
 		echo 'ok';
 	}
 
@@ -137,7 +137,7 @@ class Admin extends CI_Controller {
 
 	public function Siswa(){
 	  $this->load->database();
-		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.NPSNSekolah,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.Minat";
+		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.Tahun,DataSiswa.NPSNSekolah,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.IdProdi";
 	  $Data['Siswa'] = $this->db->query($query)->result_array();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
@@ -169,8 +169,10 @@ class Admin extends CI_Controller {
 
 	public function Perhitungan(){
 		$this->load->database();
-		$query = "SELECT Prodi.IdProdi,Prodi.NamaProdi FROM Prodi WHERE Prodi.IdProdi IN (SELECT DataSiswa.Minat FROM DataSiswa)";
-	  $Data['Prodi'] = $this->db->query($query)->result_array();
+		$query = "SELECT Prodi.IdProdi,Prodi.NamaProdi FROM Prodi WHERE Prodi.IdProdi IN (SELECT DataSiswa.IdProdi FROM DataSiswa)";
+		$Data['Prodi'] = $this->db->query($query)->result_array();
+		$query = "SELECT DISTINCT Tahun,IdProdi FROM DataSiswa";
+		$Data['FilterData'] = $this->db->query($query)->result_array();
 		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
 		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";

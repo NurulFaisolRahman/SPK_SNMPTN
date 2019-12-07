@@ -7,14 +7,14 @@
 <!-- DataTables -->
    <script>
   $(function () {
-    $("#example1").DataTable();
-    $('#example2').DataTable({
+    $('#example1').DataTable({
       "paging": true,
-      "lengthChange": false,
-      "searching": false,
+      "lengthChange": true,
+      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": false
+      "autoWidth": true
     });
   });
 

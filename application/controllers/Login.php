@@ -6,19 +6,24 @@ class Login extends CI_Controller {
   public function index(){
 		$this->load->view('Login');
 	}
-
+  
   public function CekLogin(){
   	$username = $_POST['Username'];
   	$password = $_POST['Password'];
 		$this->load->database();
+    $Akun = $this->db->get_where('Akun', array('Username' => $username,'Password' => $password))->row_array();
 		$CekLogin = $this->db->get_where('Akun', array('Username' => $username,'Password' => $password))->num_rows();
 		if($CekLogin == 0){
   		echo "Username / Password Salah";
   	}
   	else{
-			$DataSession = array('Status' => "Login");
+      if ($Akun["Username"] == "admin") {
+        echo "Admin";
+      } else {
+        echo "Siswa";
+      }
+			$DataSession = array('Status' => "Login", 'User' => $Akun["Username"]);
 			$this->session->set_userdata($DataSession);
-  		echo 'ok';
   	}
 	}
 

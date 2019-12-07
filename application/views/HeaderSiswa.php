@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SPK</title>
+    <title>Siswa</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="font/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" type="text/css" href="dist/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" type="text/css" href="plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="Admin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="Admin/font/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="Admin/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="Admin/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" type="text/css" href="Admin/plugins/datatables/dataTables.bootstrap.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -17,7 +17,7 @@
         <header class="main-header">
             <a href="index2.html" class="logo">
                 <span class="logo-mini"><b>SPK</b></span>
-                <span class="logo-lg"><b>Admin</b></span>
+                <span class="logo-lg"><b>Siswa</b></span>
             </a>
             <nav class="navbar navbar-static-top" role="navigation">
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -33,11 +33,7 @@
             </nav>
         </header>
         <?php
-          $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Admin/Siswa',
-                        'Program Studi' => 'http://localhost/SPK_SNMPTN/Admin/Prodi',
-                        'Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/Kriteria',
-                        'Sub Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/SubKriteria',
-                        'Perhitungan' => 'http://localhost/SPK_SNMPTN/Admin/Perhitungan');
+          $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Admin/Siswa');
          ?>
         <aside class="main-sidebar">
             <section class="sidebar">
