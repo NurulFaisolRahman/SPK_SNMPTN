@@ -10,19 +10,55 @@
 	<link rel="stylesheet" type="text/css" href="Assets/vendor/animate/animate.css">
 	<link rel="stylesheet" type="text/css" href="Assets/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Assets/css/main.css">
+	<style type="text/css">
+		.capbox {
+			background-color: #92D433;
+			border: #B3E272 0px solid;
+			border-width: 0px 12px 0px 0px;
+			display: inline-block;
+			*display: inline; zoom: 1; /* FOR IE7-8 */
+			padding: 8px 40px 8px 8px;
+			}
+
+		.capbox-inner {
+			font: bold 11px arial, sans-serif;
+			color: #000000;
+			background-color: #DBF3BA;
+			margin: 5px auto 0px auto;
+			padding: 3px;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			}
+
+		#CaptchaDiv {
+			font: bold 17px verdana, arial, sans-serif;
+			font-style: italic;
+			color: #000000;
+			background-color: #FFFFFF;
+			padding: 4px;
+			-moz-border-radius: 4px;
+			-webkit-border-radius: 4px;
+			border-radius: 4px;
+			}
+
+		#CaptchaInput { margin: 1px 0px 1px 0px; width: 220px; }
+	</style>
 </head>
 <body>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="Assets/images/img-01.png" alt="IMG">
+				<div class="login100">
+					<div class="login100-pic js-tilt" data-tilt>
+						<img src="Assets/images/img-01.png" alt="IMG">
+					</div>
 				</div>
 
-				<form class="login100-form">
-					<span class="login100-form-title">
+				<form class="login100-form" id="FormLogin">
+					<!-- <span class="login100-form-title">
 						Daftar Akun
-					</span>
+					</span> -->
 
 					<div class="wrap-input100">
 						<input class="input100" type="text" id="Username" placeholder="NomorPendaftaran" required>
@@ -48,6 +84,15 @@
 						</select>
 					</div>
 
+					<div class="capbox">
+						<div id="CaptchaDiv"></div>
+							<div class="capbox-inner">
+							Input Captcha :<br>
+							<input type="hidden" id="txtCaptcha">
+							<input type="text" name="CaptchaInput" id="CaptchaInput" size="15"><br>
+						</div>
+					</div>
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" id="TombolDaftar">
 							Daftar
@@ -67,6 +112,11 @@
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
+	</script>
+	<script>
+		$("#FormLogin").submit(function(e) {
+		    e.preventDefault();
+		});
 	</script>
 	<script src="Assets/js/main.js"></script>
 </body>
