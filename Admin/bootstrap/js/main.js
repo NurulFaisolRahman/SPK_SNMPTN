@@ -134,7 +134,8 @@ jQuery(document).ready(function($) {
     var DataEditSubKriteria = {
       EditNamaSubKriteria: $("#EditNamaSubKriteria").val(),
       EditIdSubKriteria: $("#EditIdSubKriteria").val(),
-      NamaSubKriteriaLama: $("#NamaSubKriteriaLama").val()
+      NamaSubKriteriaLama: $("#NamaSubKriteriaLama").val(),
+      Status: $("#Status").val()
     };
     $.ajax({
       type	: 'POST',

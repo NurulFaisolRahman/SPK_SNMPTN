@@ -19,6 +19,7 @@
       }
       for ($i=1; $i <= $Iterasi; $i++) {
         array_push($BobotSubKriteria, $_POST[$NamaKriteria.$i]);
+        array_push($SimpanPerbandinganBobot, $_POST[$NamaKriteria.$i]);
       }
       //Membuat Matrik Perbandingan Bobot SubKriteria
       $DataBobotSubKriteria = array();

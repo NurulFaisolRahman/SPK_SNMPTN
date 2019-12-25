@@ -12,7 +12,7 @@ class Siswa extends CI_Controller {
 
   public function index(){
     $this->load->database();
-		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.NPSNSekolah,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.IdProdi AND DataSiswa.NomorPendaftaran="."'".$this->session->userdata('User')."'";
+		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.NPSNSekolah,DataSiswa.NamaSiswa,DataSiswa.JenisKelamin,DataSiswa.TanggalLahir,DataSiswa.Rangking,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.IdProdi AND DataSiswa.NomorPendaftaran="."'".$this->session->userdata('User')."'";
 	  $Data['Siswa'] = $this->db->query($query)->result_array();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
@@ -24,9 +24,9 @@ class Siswa extends CI_Controller {
 
   public function UpdateSiswa(){
 		$this->load->database();
-	  $this->db->where('NomorPendaftaran', $_POST['NomorPendaftaranLama']);
+	  	$this->db->where('NomorPendaftaran', $_POST['NomorPendaftaran']);
 		array_shift($_POST);
-	  $this->db->update('DataSiswa', $_POST);
+	  	$this->db->update('DataSiswa', $_POST);
 		redirect(base_url('Siswa'));
 	}
 }

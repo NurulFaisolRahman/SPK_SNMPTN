@@ -19,11 +19,12 @@
   });
 
   $(function () {
+    var indexLastColumn = $("#Rangking").find('tr')[0].cells.length-1;
     $('#Rangking').DataTable({
       "paging": false,
       "lengthChange": true,
       "searching": false,
-      "ordering": true,
+      "order":[[indexLastColumn,'desc']],
       "info": true,
       "autoWidth": true
     });

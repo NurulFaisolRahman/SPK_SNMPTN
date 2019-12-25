@@ -30,6 +30,15 @@
                 <input type="hidden" id="EditIdSubKriteria" value="<?php echo $row['IdSubKriteria'];?>" class="form-control" required="">
                 <input type="hidden" id="NamaSubKriteriaLama" value="<?php echo $row['NamaSubKriteria'];?>" class="form-control" required="">
                 <input type="text" id="EditNamaSubKriteria" value="<?php echo $row['NamaSubKriteria'];?>" class="form-control" required="">
+                <!-- <label>Status</label>
+                <select class="form-control" id="Status">
+                    <option value="enable" <?php if ($row['Status'] == 'enable') {
+                        echo "selected";
+                      } ?>>enable</option>
+                    <option value="disable" <?php if ($row['Status'] == 'disable') {
+                        echo "selected";
+                      } ?>>disable</option>
+                </select> -->
                 </div>
              <div class="col-md-12 form-group">
                <button type="submit" id="UpdateSubKriteria" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
@@ -56,8 +65,8 @@
                     <th>No</th>
                     <th>Nama Kriteria</th>
                     <th>Nama SubKriteria</th>
-                    <th>Aksi</th>
-
+                    <!-- <th>Status</th> -->
+                    <!-- <th>Aksi</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -70,10 +79,11 @@
                         <td><?php echo $no ;?></td>
                         <td><?php echo $row['NamaKriteria'];?></td>
                         <td><?php echo $row['NamaSubKriteria'];?></td>
-                        <td>
-                            <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdSubKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
-                            <a HapusIdSubKriteria=<?php echo $row['IdSubKriteria']."|".$row['NamaSubKriteria']."|".$row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-danger HapusSubKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
-                         </td>
+                        <!-- <td><?php echo $row['Status'];?></td> -->
+                        <!-- <td> -->
+                            <!-- <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdSubKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> -->
+                            <!-- <a HapusIdSubKriteria=<?php echo $row['IdSubKriteria']."|".$row['NamaSubKriteria']."|".$row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-danger HapusSubKriteria"><li class="fa fa-trash-o"></li> Hapus</a> -->
+                         <!-- </td> -->
                     </tr>
                         <?php
                 $no++;

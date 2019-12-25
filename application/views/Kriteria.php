@@ -45,19 +45,18 @@
                 }?>
       <!-- Default box -->
       <div class="box">
-        <div class="box-header with-border">
+        <!-- <div class="box-header with-border">
             <h3 class="box-title"> <a href="#" data-toggle="modal" data-target="#my-modal1" class="btn btn-info"><li class="fa fa-plus"></li> Tambah</a></h3>
           <div class="box-tools pull-right">
              </div>
-        </div>
+        </div> -->
         <div class="box-body">
               <table id="example1" class="table table-striped dataTable no-footer">
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>Nama Kriteria</th>
-                    <th>Aksi</th>
-
+                    <!-- <th>Aksi</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -69,11 +68,11 @@
                     <tr>
                         <td><?php echo $no ;?></td>
                         <td><?php echo $row['NamaKriteria'];?></td>
-                        <td>
-                            <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a>
-                            <a HapusIdKriteria=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-danger HapusKriteria"><li class="fa fa-trash-o"></li> Hapus</a>
-                            <a IdKriteriaSub=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-success TambahIdKriteriaSub" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Tambah SubKriteria</a>
-                         </td>
+                        <!-- <td>
+                            <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?id=<?php echo $row['IdKriteria'];?>" class="btn btn-info"><li class="fa fa-pencil"></li> Edit</a> -->
+                            <!-- <a HapusIdKriteria=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-danger HapusKriteria"><li class="fa fa-trash-o"></li> Hapus</a> -->
+                            <!-- <a IdKriteriaSub=<?php echo $row['IdKriteria']."|".$row['NamaKriteria'];?> class="btn btn-success TambahIdKriteriaSub" data-toggle="modal" data-target="#my-modal2"><li class="fa fa-plus"></li> Tambah SubKriteria</a> -->
+                         <!-- </td> -->
                     </tr>
                         <?php
                 $no++;

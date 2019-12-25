@@ -4,7 +4,7 @@
   $Matrik = array();
   foreach ($Siswa as $key => $value) {
     $DataNilaiSiswa = array();
-    for ($i = 4; $i < count($FormSiswa); $i++) {
+    for ($i = 7; $i < count($FormSiswa)-1; $i++) {
       $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];
       array_push($DataNilaiSiswa, $value[$NamaKolom]);
     }
@@ -105,7 +105,7 @@
       }
     }
     //Langkah 6 Menetukan Agregat Dominan Matrik";
-    $MatrikAgregatDominan = $MatrikConcordance;
+    $MatrikAgregatDominan = $MatrikDominanConcordance;
     for ($i = 0; $i < count($MatrikConcordance); $i++) {
       for ($j = 0; $j < count($MatrikConcordance); $j++) {
         if ($i != $j) {

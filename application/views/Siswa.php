@@ -31,6 +31,19 @@
                 <input disabled type="text" name="NomorPendaftaran" value="<?php echo $row['NomorPendaftaran'];?>" class="form-control" required="">
                 <label>NPSN Sekolah</label>
                 <input disabled  type="text" name="NPSNSekolah" value="<?php echo $row['NPSNSekolah'];?>" class="form-control" required="">
+                <label>Nama Siswa</label>
+                <input disabled type="text" name="NamaSiswa" value="<?php echo $row['NPSNSekolah'];?>" class="form-control" required="">
+                <label>Jenis Kelamin</label>
+                <select disabled class="form-control" name="JenisKelamin">
+                    <option value="L" <?php if ($row['JenisKelamin'] == 'L') {
+                        echo "selected";
+                      } ?>>Laki-laki</option>
+                    <option value="P" <?php if ($row['JenisKelamin'] == 'P') {
+                        echo "selected";
+                      } ?>>Perempuan</option>
+                </select>
+                <label>Tanggal Lahir</label>
+                <input disabled type="date" name="TanggalLahir" value="<?php echo $row['TanggalLahir'];?>" class="form-control" required="">
                 <label>Minat</label>
                 <select disabled class="form-control" name="IdProdi">
                 <?php
@@ -41,7 +54,7 @@
                       } ?>><?php echo $data['NamaProdi']; ?></option>
                 <?php } ?>
                 </select>
-                <?php for ($i = 3; $i < count($FormSiswa); $i++) { $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];?>
+                <?php for ($i = 7; $i < count($FormSiswa); $i++) { $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];?>
                   <div class="form-group">
                       <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
                       <input disabled type="text" name="<?php echo $NamaKolom;?>" value="<?php echo $row[$NamaKolom];?>" class="form-control" required="">
@@ -74,8 +87,11 @@
                     <th>No</th>
                     <th>Nomor Pendaftaran</th>
                     <th>NPSN Sekolah</th>
+                    <th>Nama Siswa</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Tanggal Lahir</th>
                     <th>Minat</th>
-                    <th>Tahun</th>
+                    <th>Rangking</th>
                     <th>Aksi</th>
 
                   </tr>
@@ -90,8 +106,11 @@
                         <td><?php echo $no ;?></td>
                         <td><?php echo $row['NomorPendaftaran'];?></td>
                         <td><?php echo $row['NPSNSekolah'];?></td>
+                        <td><?php echo $row['NamaSiswa'];?></td>
+                        <td><?php echo $row['JenisKelamin'];?></td>
+                        <td><?php echo $row['TanggalLahir'];?></td>
                         <td><?php echo $row['NamaProdi'];?></td>
-                        <td><?php echo $row['Tahun'];?></td>
+                        <td><?php echo $row['Rangking'];?></td>
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?NomorPendaftaran=<?php echo $row['NomorPendaftaran'];?>" class="btn btn-info"><li class="fa fa-eye"></li> Lihat</a>
                             <!-- <a HapusSiswa=<?php echo $row['NomorPendaftaran'];?> class="btn btn-danger HapusSiswa"><li class="fa fa-trash-o"></li> Hapus</a> -->

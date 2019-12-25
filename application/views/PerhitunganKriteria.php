@@ -1,6 +1,7 @@
 <?php
   //Menampilkan dan Melakukan Perhitungan Ketika Post
   if (!empty($_POST)) {
+    $SimpanPerbandinganBobot = array();
     //Membuat Array Untuk Perbandingan Bobot Kriteria
     $BobotKriteria = array();
     $Iterasi = 0;
@@ -9,6 +10,7 @@
     }
     for ($i=1; $i <= $Iterasi; $i++) {
       array_push($BobotKriteria, $_POST['BobotKriteria'.$i]);
+      array_push($SimpanPerbandinganBobot, $_POST['BobotKriteria'.$i]);
     }
     //Membuat Matrik Perbandingan Bobot Kriteria
     $DataBobotKriteria = array();

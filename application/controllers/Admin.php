@@ -63,10 +63,10 @@ class Admin extends CI_Controller {
 	  $this->load->database();
 	  $this->db->where('IdKriteria', $_POST['EditIdKriteria']);
 	  $this->db->update('Kriteria', array('NamaKriteria' => $_POST['EditNamaKriteria']));
-		$NamaKriteria = $_POST['EditNamaKriteria'];
-		$NamaKriteriaLama = $_POST['NamaKriteriaLama'];
-		$query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaKriteriaLama $NamaKriteria Varchar(30)";
-	  $this->db->query($query);
+	  // $NamaKriteria = $_POST['EditNamaKriteria'];
+	  // $NamaKriteriaLama = $_POST['NamaKriteriaLama'];
+	  // $query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaKriteriaLama $NamaKriteria Varchar(30)";
+	  // $this->db->query($query);
 	  echo 'ok';
 	}
 
@@ -112,11 +112,11 @@ class Admin extends CI_Controller {
 	public function UpdateSubKriteria(){
 	  $this->load->database();
 	  $this->db->where('IdSubKriteria', $_POST['EditIdSubKriteria']);
-	  $this->db->update('SubKriteria', array('NamaSubKriteria' => $_POST['EditNamaSubKriteria']));
-		$NamaSubKriteria = $_POST['EditNamaSubKriteria'];
-		$NamaSubKriteriaLama = $_POST['NamaSubKriteriaLama'];
-		$query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaSubKriteriaLama $NamaSubKriteria Varchar(30)";
-	  $this->db->query($query);
+	  $this->db->update('SubKriteria', array('NamaSubKriteria' => $_POST['EditNamaSubKriteria'], 'Status' => $_POST['Status']));
+		// $NamaSubKriteria = $_POST['EditNamaSubKriteria'];
+		// $NamaSubKriteriaLama = $_POST['NamaSubKriteriaLama'];
+		// $query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaSubKriteriaLama $NamaSubKriteria Varchar(30)";
+	 //  $this->db->query($query);
 		echo 'ok';
 	}
 
@@ -137,7 +137,7 @@ class Admin extends CI_Controller {
 
 	public function Siswa(){
 	  $this->load->database();
-		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.Tahun,DataSiswa.NPSNSekolah,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.IdProdi";
+		$query = "SELECT DataSiswa.NomorPendaftaran,DataSiswa.NPSNSekolah,DataSiswa.NamaSiswa,DataSiswa.JenisKelamin,DataSiswa.TanggalLahir,DataSiswa.Rangking,Prodi.NamaProdi FROM Prodi,DataSiswa WHERE Prodi.IdProdi=DataSiswa.IdProdi";
 	  $Data['Siswa'] = $this->db->query($query)->result_array();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";

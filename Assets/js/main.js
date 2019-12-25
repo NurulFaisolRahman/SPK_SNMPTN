@@ -29,6 +29,8 @@ jQuery(document).ready(function($) {
       var dt = new Date();
       var datalogin = { Username: $("#Username").val(),
                         Password: $("#Password").val(),
+                        TanggalLahir: $("#TanggalLahir").val(),
+                        JenisKelamin: $("#JenisKelamin").val(),
                         IdProdi: $("#IdProdi").val(),
                         Tahun: dt.getFullYear()
                       };

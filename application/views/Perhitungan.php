@@ -224,9 +224,9 @@
                     </tr>
                     <tr>
                       <?php
-                        for ($i=0; $i < count($FormSiswa)-3; $i++) {
+                        for ($i=0; $i < count($FormSiswa)-7; $i++) {
                           if ($i == 0) {
-                            echo "<td colspan=4 style='text-align:center;'>Bobot =======></td>";
+                            echo "<td colspan=7 style='text-align:center;'>Bobot =======></td>";
                           }
                           else {
                             echo "<td style='text-align:center;'>".$BobotDataSiswa[$i-1]."</td>";
@@ -264,9 +264,9 @@
                       <?php } ?>
                       <tr>
                         <?php
-                          for ($i=0; $i < count($FormSiswa)-3; $i++) {
+                          for ($i=0; $i < count($FormSiswa)-7; $i++) {
                             if ($i == 0) {
-                              echo "<td colspan=4 style='text-align:center;'>Nilai X =======></td>";
+                              echo "<td colspan=7 style='text-align:center;'>Nilai X =======></td>";
                             }
                             else {
                               echo "<td style='text-align:center;'>".$Nilai_X[$i-1]."</td>";
@@ -291,7 +291,7 @@
                         echo "<td>Nomor Pendaftaran</td>";
                       }
                       else {
-                        echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+2]."</td>";
+                        echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+6]."</td>";
                       }
                     }
                     else {
@@ -320,7 +320,7 @@
       				 					echo "<td>Nomor Pendaftaran</td>";
       				 				}
       				 				else {
-      				 					echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+2]."</td>";
+      				 					echo "<td>".$NamaKolomKriteriaDanSub[$Kolom+6]."</td>";
       				 				}
       				 			}
       				 			else {
@@ -432,6 +432,60 @@
                   ?>
                   </tbody>
                 </table></div></div>
+                <?php 
+                  $Rangking = array();
+                  $RangkingSiswa = array();
+                  $Indeks = 0;
+                  arsort($HimpunanAlternatifTerbaik);
+                  foreach ($HimpunanAlternatifTerbaik as $key => $value) {
+                    array_push($Rangking, Array(0 => $NomorPendaftaranSiswa[$key]));
+                    array_push($RangkingSiswa, Array('NomorPendaftaran' => $NomorPendaftaranSiswa[$key]));
+                    $Rangking[$Indeks][1] = $value;
+                    $RangkingSiswa[$Indeks]['Rangking'] = ($Indeks+1);
+                    $Indeks++;
+                  }
+                  $this->db->update_batch('DataSiswa', $RangkingSiswa, 'NomorPendaftaran');
+                 ?>
+                 <h4>Rangking</h4>
+                 <table id="classTable" class="table table-bordered">
+                  <?php 
+                    for ($Baris=0; $Baris < count($Rangking)+1; $Baris++) { 
+                      if ($Baris == 0) {
+                        echo "<thead>";
+                      }
+                      echo "<tr>";
+                      for ($Kolom=0; $Kolom < count($Rangking[0])+1; $Kolom++) { 
+                        if ($Baris == 0) {
+                          if ($Kolom == 0) {
+                            echo "<td>NomorPendaftaran</td>";
+                          }
+                          else if($Kolom == count($Rangking[0])-1){
+                            echo "<td>Rangking</td>";
+                          }
+                          else {
+                            echo "<td>Jumlah Preferensi</td>";
+                          }
+                        }
+                        else {
+                          if ($Kolom == 0) {
+                            echo "<td>".$Rangking[$Baris-1][0]."</td>";
+                          }
+                          else if($Kolom == count($Rangking[0])-1){
+                            echo "<td>".$Baris."</td>";
+                          }
+                          else {
+                            echo "<td>".$Rangking[$Baris-1][$Kolom-1]."</td>";
+                          }
+                        }
+                      }
+                      if ($Baris == 0) {
+                        echo "</thead>";
+                      }
+                      echo "</tr>";
+                    }
+                   ?>
+                   <tbody>
+                 </table>
                 <?php } ?>
               </div>
         </div><!-- /.box-body -->

@@ -18,11 +18,9 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="Assets/images/img-01.png" alt="IMG">
 				</div>
-
+		
 				<form class="login100-form">
-					<span class="login100-form-title">
-						Admin Login
-					</span>
+					<br>
 
 					<div class="wrap-input100">
 						<input class="input100" type="text" id="Username" placeholder="Username">

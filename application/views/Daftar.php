@@ -49,7 +49,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100">
+				<div class="login100" style="padding-top:40px;">
 					<div class="login100-pic js-tilt" data-tilt>
 						<img src="Assets/images/img-01.png" alt="IMG">
 					</div>
@@ -61,7 +61,7 @@
 					</span> -->
 
 					<div class="wrap-input100">
-						<input class="input100" type="text" id="Username" placeholder="NomorPendaftaran" required>
+						<input class="input100" type="text" id="Username" placeholder="Nama Siswa" required>
 						<span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
@@ -72,6 +72,17 @@
 						<span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
+					</div>
+
+					<div class="wrap-input100">
+						<select class="form-control" id="JenisKelamin" required>
+							<option value="L">Laki-laki</option>
+							<option value="P">Perempuan</option>
+						</select>
+					</div>
+
+					<div class="wrap-input100">
+						<input class="input100" type="date" id="TanggalLahir" required>
 					</div>
 
 					<div class="wrap-input100">
