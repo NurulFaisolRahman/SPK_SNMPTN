@@ -16,19 +16,18 @@
               $Pecah = explode("|",$_POST['IDMinat']);
             }
              ?>
+             <form method="post">
               <table id="Perhitungan" class="table table-striped dataTable no-footer">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Nama Program Studi</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><?php echo "1"?></td>
                         <td>
-                          <select class="form-control" id="IdProdi">
+                          <select class="form-control" id="IdProdi" name="IDMinat">
                             <?php
                             foreach ($FilterData as $row) {?>
                                <option value="<?=$row['IdProdi']."|".$row['Tahun'];?>" <?php if (!empty($Pecah)) {
@@ -45,6 +44,30 @@
                     </tr>
                 </tbody>
               </table>
+              <table id="Perhitungan" class="table table-striped dataTable no-footer">
+                <thead>
+                  <tr>
+                    <th>Tanggal Bobot Yang Di Simpan</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                          <select class="form-control" name="BobotHistory">
+                            <?php
+                            foreach ($Bobot as $row) {?>
+                               <option value="<?=$row['Bobot'];?>"><?=$row['Waktu'];?></option>
+                            <?php } ?>
+                          </select>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-info"> <b>Hitung</b></button>
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+              </form>
               <button onclick="TabelPerbandingan()" class="btn btn-info"> <b>Show/HIde Tabel Perbandingan</b></button>
               <button onclick="PerhitunganANP()" class="btn btn-info"> <b>Show/HIde Perhitungan Bobot</b></button>
               <button onclick="PerhitunganElectre()" class="btn btn-info"> <b>Show/HIde Perhitungan Electre</b></button>
@@ -113,7 +136,7 @@
                           <div class="col-sm-8">
                             <select class="form-control" name="<?php echo "BobotKriteria".$counter; ?>">
                               <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
-                                <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
+                                <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $BobotPerbandingan[$k];?></option>
                               <?php } ?>
                             </select>
                           </div>
@@ -151,7 +174,7 @@
                             <div class="col-sm-8">
                               <select class="form-control" name="<?php echo $key['NamaKriteria'].$counter; ?>">
                                 <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
-                                  <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
+                                  <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $BobotPerbandingan[$k];?></option>
                                 <?php } ?>
                               </select>
                             </div>
@@ -177,29 +200,43 @@
                 <?php
                 if (!empty($_POST)) {
                   $BobotDataSiswa = array();
-                  $TampungBobotSubKriteria = array();
-                  foreach ($BobotSetiapKriteria as $key => $value) {
-                    $Nampung = array();
-                    $CekPunyaSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->num_rows();
-                    if ($CekPunyaSub == 0) {
+                  if (!empty($_POST['BobotHistory'])) {
+                    $BobotDataSiswa = explode("|", $_POST['BobotHistory']);
+                  } 
+                  else {
+                    $BobotKriteriaTanpaSub = array();
+                    $TampungBobotSubKriteria = array();
+                    foreach ($BobotSetiapKriteria as $key => $value) {
+                      $Nampung = array();
+                      $CekPunyaSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->num_rows();
+                      if ($CekPunyaSub == 0) {
+                        array_push($BobotKriteriaTanpaSub, $value);
+                      }
+                      else{
+                        $DataSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->result_array();
+                        foreach ($DataSub as $Kunci => $Nilai) {
+                          array_push($Nampung, $value);
+                        }
+                        $TampungBobotSubKriteria[$key] = $Nampung;
+                      }
+                    }
+                    foreach ($DataBobotSiswaSubKriteria as $Key => $Value) {
+                      foreach ($TampungBobotSubKriteria as $key => $value) {
+                        array_reverse($value);
+                        $Counter = 0;
+                        foreach ($value as $kunci => $data) {
+                          array_push($BobotDataSiswa, round($data*$Value[$Counter],3));
+                          $Counter = $Counter + 1;
+                        }
+                      }
+                    }
+                    foreach ($BobotKriteriaTanpaSub as $key => $value) {
                       array_push($BobotDataSiswa, $value);
                     }
-                    else{
-                      $DataSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->result_array();
-                      foreach ($DataSub as $Kunci => $Nilai) {
-                        array_push($Nampung, $value);
-                      }
-                      $TampungBobotSubKriteria[$key] = $Nampung;
-                    }
-                  }
-                  foreach ($DataBobotSiswaSubKriteria as $Key => $Value) {
-                    foreach ($TampungBobotSubKriteria as $key => $value) {
-                      array_reverse($value);
-                      $Counter = 0;
-                      foreach ($value as $kunci => $data) {
-                        array_push($BobotDataSiswa, round($data*$Value[$Counter],3));
-                        $Counter = $Counter + 1;
-                      }
+                    $SimpanBobot = '';
+                    if (!empty($BobotDataSiswa)) {
+                      $SimpanBobot = implode("|", $BobotDataSiswa);
+                      $this->db->insert('Bobot', array('Bobot' => $SimpanBobot));
                     }
                   }
                  ?>
@@ -444,7 +481,7 @@
                     $RangkingSiswa[$Indeks]['Rangking'] = ($Indeks+1);
                     $Indeks++;
                   }
-                  $this->db->update_batch('DataSiswa', $RangkingSiswa, 'NomorPendaftaran');
+                  // $this->db->update_batch('DataSiswa', $RangkingSiswa, 'NomorPendaftaran');
                  ?>
                  <h4>Rangking</h4>
                  <table id="classTable" class="table table-bordered">

@@ -174,6 +174,7 @@ class Admin extends CI_Controller {
 		$query = "SELECT DISTINCT Tahun,IdProdi FROM DataSiswa";
 		$Data['FilterData'] = $this->db->query($query)->result_array();
 		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
+		$Data['Bobot'] = $this->db->get('Bobot')->result_array();
 		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
 	  $Data['FormSiswa'] = $this->db->query($query)->result_array();

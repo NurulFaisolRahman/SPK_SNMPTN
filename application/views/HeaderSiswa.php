@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Siswa</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" type="text/css" href="Admin/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="Admin/font/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="Admin/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" type="text/css" href="Admin/dist/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" type="text/css" href="Admin/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('Admin/bootstrap/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('Admin/font/css/font-awesome.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('Admin/dist/css/AdminLTE.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('Admin/dist/css/skins/_all-skins.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?=base_url('Admin/plugins/datatables/dataTables.bootstrap.css') ?>">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -33,7 +33,8 @@
             </nav>
         </header>
         <?php
-          $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Admin/Siswa');
+          $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Siswa',
+                        'Nilai Semester' => 'http://localhost/SPK_SNMPTN/Siswa/Nilai');
          ?>
         <aside class="main-sidebar">
             <section class="sidebar">

@@ -19,6 +19,7 @@ class Daftar extends CI_Controller {
     $nomor = password_hash("spk", PASSWORD_DEFAULT);
 		$this->load->database();
     $this->db->insert('Akun', array('Username' => substr($nomor, 7, 20), 'Password' => $password));
+    $this->db->insert('Nilai', array('NomorPendaftaran' => substr($nomor, 7, 20)));
     $this->db->insert('DataSiswa', array('NomorPendaftaran' => substr($nomor, 7, 20), 'IdProdi' => $minat, 'NamaSiswa' => $username, 'TanggalLahir' => $TanggalLahir, 'JenisKelamin' => $JenisKelamin, 'Tahun' => $tahun));
     $DataSession = array('Status' => "Login", 'User' => substr($nomor, 7, 20));
 		$this->session->set_userdata($DataSession);

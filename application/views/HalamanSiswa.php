@@ -52,12 +52,12 @@
                       } ?>><?php echo $data['NamaProdi']; ?></option>
                 <?php } ?>
                 </select>
-                <?php for ($i = 7; $i < count($FormSiswa)-1; $i++) { $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];?>
+                <!-- <?php for ($i = 7; $i < count($FormSiswa)-1; $i++) { $NamaKolom = $FormSiswa[$i]['COLUMN_NAME'];?>
                   <div class="form-group">
                       <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
-                      <input type="text" name="<?php echo $NamaKolom;?>" value="<?php echo $row[$NamaKolom];?>" class="form-control" required="">
+                      <input type="text" name="<?php echo $NamaKolom;?>" value="<?php echo $row[$NamaKolom];?>" class="form-control" readonly>
                   </div>
-                <?php }?>
+                <?php }?> -->
                 </div>
              <div class="col-md-12 form-group">
                <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button>
@@ -123,43 +123,3 @@
       </div><!-- /.box -->
     </section><!-- /.content -->
 </div>
-<form method="post" action="http://localhost/SPK_SNMPTN/Admin/TambahSiswa">
-    <div class="modal fade" id="my-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Tambah Data Siswa</h4>
-                </div>
-                <div class="modal-body center">
-                  <div class="form-group">
-                      <label>Nomor Pendaftaran</label>
-                      <input type="text" name="NomorPendaftaran" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
-                  </div>
-                  <div class="form-group">
-                      <label>NPSN Sekolah</label>
-                      <input type="text" name="NPSNSekolah" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
-                  </div>
-                  <div class="form-group">
-                      <label>Minat</label>
-                      <select class="form-control" name="Minat">
-                      <?php
-                        foreach ($Prodi as $data) {?>
-                          <option value="<?php echo $data['IdProdi']; ?>"><?php echo $data['NamaProdi']; ?></option>
-                        <?php } ?>
-                      </select>
-                  </div>
-                  <?php for ($i = 3; $i < count($FormSiswa); $i++) {?>
-                    <div class="form-group">
-                        <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
-                        <input type="text" name="<?php echo $FormSiswa[$i]['COLUMN_NAME'];?>" class="form-control" required="">
-                    </div>
-                  <?php }?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
-                    <button type="submit" class="btn btn-info"> Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>

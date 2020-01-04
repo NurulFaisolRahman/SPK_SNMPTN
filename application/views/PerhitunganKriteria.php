@@ -1,7 +1,7 @@
 <?php
   //Menampilkan dan Melakukan Perhitungan Ketika Post
   if (!empty($_POST)) {
-    $SimpanPerbandinganBobot = array();
+    // $SimpanPerbandinganBobot = array();
     //Membuat Array Untuk Perbandingan Bobot Kriteria
     $BobotKriteria = array();
     $Iterasi = 0;
@@ -10,7 +10,7 @@
     }
     for ($i=1; $i <= $Iterasi; $i++) {
       array_push($BobotKriteria, $_POST['BobotKriteria'.$i]);
-      array_push($SimpanPerbandinganBobot, $_POST['BobotKriteria'.$i]);
+      // array_push($SimpanPerbandinganBobot, $_POST['BobotKriteria'.$i]);
     }
     //Membuat Matrik Perbandingan Bobot Kriteria
     $DataBobotKriteria = array();
@@ -69,7 +69,7 @@
     //Membuat Array Normalisasi Bobot
     $NormalisasiBobot = array();
     foreach ($TotalBobotKriteriaHorizontal as $key => $value) {
-      array_push($NormalisasiBobot, round($value/$TotalKriteriaHorizontal,3));
+      array_push($NormalisasiBobot, round($value/$TotalKriteriaHorizontal,2));
     }
     //Menyimpan Bobot Setiap Kriteria
     $BobotSetiapKriteria = array();
@@ -86,10 +86,10 @@
     for ($i=0; $i < $TotalKriteria; $i++) {
       $TampungNilai = 0;
       for ($j=0; $j < $TotalKriteria; $j++) {
-        $TampungNilai = $TampungNilai + (round($DataBobotKriteria[$i][$j]*$NormalisasiBobot[$j],3));
+        $TampungNilai = $TampungNilai + (round($DataBobotKriteria[$i][$j]*$NormalisasiBobot[$j],2));
       }
       array_push($HasilKaliBobot, $TampungNilai);
-      array_push($Eigen, round($TampungNilai/$NormalisasiBobot[$i],9));
+      array_push($Eigen, round($TampungNilai/$NormalisasiBobot[$i],2));
       $TotalHasilKaliBobot = $TotalHasilKaliBobot + $Eigen[$i];
     }
     $Rata2HasilKaliBobot = round($TotalHasilKaliBobot/$TotalKriteria,2);
