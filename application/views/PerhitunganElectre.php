@@ -1,5 +1,6 @@
 <?php
   $Pisah = explode("|",$_POST['IDMinat']);
+  print_r($Pisah);
   $Siswa = $this->db->get_where('DataSiswa', array('IdProdi' => $Pisah[0], 'Tahun' => $Pisah[1]))->result_array();
   $Matrik = array();
   foreach ($Siswa as $key => $value) {

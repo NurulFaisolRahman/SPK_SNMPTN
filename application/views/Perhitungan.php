@@ -16,7 +16,6 @@
               $Pecah = explode("|",$_POST['IDMinat']);
             }
              ?>
-             <form method="post">
               <table id="Perhitungan" class="table table-striped dataTable no-footer">
                 <thead>
                   <tr>
@@ -27,7 +26,7 @@
                 <tbody>
                     <tr>
                         <td>
-                          <select class="form-control" id="IdProdi" name="IDMinat">
+                          <select class="form-control" id="IdProdi" onchange="GantiProdi()">
                             <?php
                             foreach ($FilterData as $row) {?>
                                <option value="<?=$row['IdProdi']."|".$row['Tahun'];?>" <?php if (!empty($Pecah)) {
@@ -54,7 +53,7 @@
                 <tbody>
                     <tr>
                         <td>
-                          <select class="form-control" name="BobotHistory">
+                          <select class="form-control" name="BobotHistory" id="BobotHistory">
                             <?php
                             foreach ($Bobot as $row) {?>
                                <option value="<?=$row['Bobot'];?>"><?=$row['Waktu'];?></option>
@@ -62,12 +61,11 @@
                           </select>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-info"> <b>Hitung</b></button>
+                            <button onclick="TampilkanBobot()" class="btn btn-info"> <b>Lihat Bobot</b></button>
                         </td>
                     </tr>
                 </tbody>
               </table>
-              </form>
               <button onclick="TabelPerbandingan()" class="btn btn-info"> <b>Show/HIde Tabel Perbandingan</b></button>
               <button onclick="PerhitunganANP()" class="btn btn-info"> <b>Show/HIde Perhitungan Bobot</b></button>
               <button onclick="PerhitunganElectre()" class="btn btn-info"> <b>Show/HIde Perhitungan Electre</b></button>
@@ -115,7 +113,7 @@
                 }
                ?>
               <div id="FormPerhitungan" style="display: none;">
-                <form method="post">
+                <form method="post" onsubmit="SimpanIndexBobot()">
                 <div class="form-group">
                   <input type="hidden" id="IDMinat" name="IDMinat" class="form-control">
                   <input type="hidden" id="NamaProdiKriteria"  class="form-control">
@@ -134,9 +132,9 @@
                             <label><?php echo $DataKriteria[$x+1];?></label>
                           </div>
                           <div class="col-sm-8">
-                            <select class="form-control" name="<?php echo "BobotKriteria".$counter; ?>">
+                            <select class="form-control" name="<?php echo "BobotKriteria".$counter; ?>" id="<?php echo "BobotKriteria".$counter; ?>">
                               <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
-                                <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $BobotPerbandingan[$k];?></option>
+                                <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
                               <?php } ?>
                             </select>
                           </div>
@@ -172,9 +170,9 @@
                               <label><?php echo $NamaSubKriteria[$x+1];?></label>
                             </div>
                             <div class="col-sm-8">
-                              <select class="form-control" name="<?php echo $key['NamaKriteria'].$counter; ?>">
+                              <select class="form-control" name="<?php echo $key['NamaKriteria'].$counter; ?>" id="<?php echo $key['NamaKriteria'].$counter; ?>">
                                 <?php for ($k=0; $k < count($BobotPerbandingan); $k++) { ?>
-                                  <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $BobotPerbandingan[$k];?></option>
+                                  <option value="<?php echo $BobotPerbandingan[$k];?>"><?php echo $TextPerbandingan[$k];?></option>
                                 <?php } ?>
                               </select>
                             </div>
@@ -200,44 +198,34 @@
                 <?php
                 if (!empty($_POST)) {
                   $BobotDataSiswa = array();
-                  if (!empty($_POST['BobotHistory'])) {
-                    $BobotDataSiswa = explode("|", $_POST['BobotHistory']);
-                  } 
-                  else {
-                    $BobotKriteriaTanpaSub = array();
-                    $TampungBobotSubKriteria = array();
-                    foreach ($BobotSetiapKriteria as $key => $value) {
-                      $Nampung = array();
-                      $CekPunyaSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->num_rows();
-                      if ($CekPunyaSub == 0) {
-                        array_push($BobotKriteriaTanpaSub, $value);
-                      }
-                      else{
-                        $DataSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->result_array();
-                        foreach ($DataSub as $Kunci => $Nilai) {
-                          array_push($Nampung, $value);
-                        }
-                        $TampungBobotSubKriteria[$key] = $Nampung;
-                      }
+                  $BobotKriteriaTanpaSub = array();
+                  $TampungBobotSubKriteria = array();
+                  foreach ($BobotSetiapKriteria as $key => $value) {
+                    $Nampung = array();
+                    $CekPunyaSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->num_rows();
+                    if ($CekPunyaSub == 0) {
+                      array_push($BobotKriteriaTanpaSub, $value);
                     }
-                    foreach ($DataBobotSiswaSubKriteria as $Key => $Value) {
-                      foreach ($TampungBobotSubKriteria as $key => $value) {
-                        array_reverse($value);
-                        $Counter = 0;
-                        foreach ($value as $kunci => $data) {
-                          array_push($BobotDataSiswa, round($data*$Value[$Counter],3));
-                          $Counter = $Counter + 1;
-                        }
+                    else{
+                      $DataSub = $this->db->get_where('SubKriteria', array('IdKriteria' => $key))->result_array();
+                      foreach ($DataSub as $Kunci => $Nilai) {
+                        array_push($Nampung, $value);
+                      }
+                      $TampungBobotSubKriteria[$key] = $Nampung;
+                    }
+                  }
+                  foreach ($DataBobotSiswaSubKriteria as $Key => $Value) {
+                    foreach ($TampungBobotSubKriteria as $key => $value) {
+                      array_reverse($value);
+                      $Counter = 0;
+                      foreach ($value as $kunci => $data) {
+                        array_push($BobotDataSiswa, round($data*$Value[$Counter],3));
+                        $Counter = $Counter + 1;
                       }
                     }
-                    foreach ($BobotKriteriaTanpaSub as $key => $value) {
-                      array_push($BobotDataSiswa, $value);
-                    }
-                    $SimpanBobot = '';
-                    if (!empty($BobotDataSiswa)) {
-                      $SimpanBobot = implode("|", $BobotDataSiswa);
-                      $this->db->insert('Bobot', array('Bobot' => $SimpanBobot));
-                    }
+                  }
+                  foreach ($BobotKriteriaTanpaSub as $key => $value) {
+                    array_push($BobotDataSiswa, $value);
                   }
                  ?>
                  <div id="PerhitunganElectre" style="display: none;">
@@ -530,6 +518,7 @@
     </section><!-- /.content -->
 </div>
 <script type="text/javascript">
+  document.getElementById('IDMinat').value = document.getElementById('IdProdi').value;
   function TabelPerbandingan() {
     var x = document.getElementById("TabelPerbandingan");
     if (x.style.display === "none") {
@@ -540,7 +529,6 @@
   }
   function FormPerhitungan() {
     var x = document.getElementById("FormPerhitungan");
-    document.getElementById('IDMinat').value = $("#IdProdi").val();
     if (x.style.display === "none") {
       x.style.display = "grid";
     } else {
@@ -562,6 +550,63 @@
     } else {
       x.style.display = "none";
     }
+  }
+
+  function GantiProdi(){
+    document.getElementById('IDMinat').value = $("#IdProdi").val();
+  }
+
+  function TampilkanBobot(){
+    var Index = document.getElementById('BobotHistory').value.split('|');
+    document.getElementById('BobotKriteria1').selectedIndex = Index[0];
+    document.getElementById('BobotKriteria2').selectedIndex = Index[1];
+    document.getElementById('BobotKriteria3').selectedIndex = Index[2];
+    document.getElementById('MataPelajaran1').selectedIndex = Index[3];
+    document.getElementById('MataPelajaran2').selectedIndex = Index[4];
+    document.getElementById('MataPelajaran3').selectedIndex = Index[5];
+    document.getElementById('MataPelajaran4').selectedIndex = Index[6];
+    document.getElementById('MataPelajaran5').selectedIndex = Index[7];
+    document.getElementById('MataPelajaran6').selectedIndex = Index[8];
+    document.getElementById('MataPelajaran7').selectedIndex = Index[9];
+    document.getElementById('MataPelajaran8').selectedIndex = Index[10];
+    document.getElementById('MataPelajaran9').selectedIndex = Index[11];
+    document.getElementById('MataPelajaran10').selectedIndex = Index[12];
+    document.getElementById('MataPelajaran11').selectedIndex = Index[13];
+    document.getElementById('MataPelajaran12').selectedIndex = Index[14];
+    document.getElementById('MataPelajaran13').selectedIndex = Index[15];
+    document.getElementById('MataPelajaran14').selectedIndex = Index[16];
+    document.getElementById('MataPelajaran15').selectedIndex = Index[17];
+    var x = document.getElementById("FormPerhitungan");
+    if (x.style.display === "none") {
+      x.style.display = "grid";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
+  function SimpanIndexBobot(){
+    var bobot1 = document.getElementById('BobotKriteria1').selectedIndex;
+    var bobot2 = document.getElementById('BobotKriteria2').selectedIndex;
+    var bobot3 = document.getElementById('BobotKriteria3').selectedIndex;
+    var bobot4 = document.getElementById('MataPelajaran1').selectedIndex;
+    var bobot5 = document.getElementById('MataPelajaran2').selectedIndex;
+    var bobot6 = document.getElementById('MataPelajaran3').selectedIndex;
+    var bobot7 = document.getElementById('MataPelajaran4').selectedIndex;
+    var bobot8 = document.getElementById('MataPelajaran5').selectedIndex;
+    var bobot9 = document.getElementById('MataPelajaran6').selectedIndex;
+    var bobot10 = document.getElementById('MataPelajaran7').selectedIndex;
+    var bobot11 = document.getElementById('MataPelajaran8').selectedIndex;
+    var bobot12 = document.getElementById('MataPelajaran9').selectedIndex;
+    var bobot13 = document.getElementById('MataPelajaran10').selectedIndex;
+    var bobot14 = document.getElementById('MataPelajaran11').selectedIndex;
+    var bobot15 = document.getElementById('MataPelajaran12').selectedIndex;
+    var bobot16 = document.getElementById('MataPelajaran13').selectedIndex;
+    var bobot17 = document.getElementById('MataPelajaran14').selectedIndex;
+    var bobot18 = document.getElementById('MataPelajaran15').selectedIndex;
+    var bobot = bobot1+"|"+bobot2+"|"+bobot3+"|"+bobot4+"|"+bobot5+"|"+bobot6+"|"+bobot7+"|"+bobot8+"|"+bobot9+"|"+bobot10+"|"+bobot11+"|"+bobot12+"|"+bobot13+"|"+bobot14+"|"+bobot15+"|"+bobot16+"|"+bobot17+"|"+bobot18;
+    var Data = { BOBOT : bobot };
+    $.post("http://localhost/SPK_SNMPTN/Admin/SimpanBobot", Data);
+    alert('Bobot Berhasil Disimpan')
   }
 
 </script>

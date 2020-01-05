@@ -183,4 +183,9 @@ class Admin extends CI_Controller {
 	  $this->load->view('Footer');
 	}
 
+	public function SimpanBobot(){
+		$this->load->database();
+		$this->db->insert('Bobot', array('Bobot' => $_POST['BOBOT']));
+	}
+
 }
