@@ -469,7 +469,7 @@
                     $RangkingSiswa[$Indeks]['Rangking'] = ($Indeks+1);
                     $Indeks++;
                   }
-                  // $this->db->update_batch('DataSiswa', $RangkingSiswa, 'NomorPendaftaran');
+                  $this->db->update_batch('DataSiswa', $RangkingSiswa, 'NomorPendaftaran');
                  ?>
                  <h4>Rangking</h4>
                  <table id="classTable" class="table table-bordered">
