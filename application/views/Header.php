@@ -36,7 +36,6 @@
           $Menu = array('Data Siswa' => 'http://localhost/SPK_SNMPTN/Admin/Siswa',
                         'Program Studi' => 'http://localhost/SPK_SNMPTN/Admin/Prodi',
                         'Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/Kriteria',
-                        'Sub Kriteria' => 'http://localhost/SPK_SNMPTN/Admin/SubKriteria',
                         'Perhitungan' => 'http://localhost/SPK_SNMPTN/Admin/Perhitungan');
          ?>
         <aside class="main-sidebar">

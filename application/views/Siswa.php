@@ -61,9 +61,6 @@
                   </div>
                 <?php }?>
                 </div>
-             <div class="col-md-12 form-group">
-               <!-- <button type="submit" class="btn btn-primary btn-flat pull-right"><span class="fa fa-send"></span> Simpan</button> -->
-             </div>
             </div>
               </div></form>
           </div>
@@ -113,7 +110,6 @@
                         <td><?php echo $row['Rangking'];?></td>
                         <td>
                             <a href="<?php $_SERVER[SCRIPT_NAME] ;?>?NomorPendaftaran=<?php echo $row['NomorPendaftaran'];?>" class="btn btn-info"><li class="fa fa-eye"></li> Lihat</a>
-                            <!-- <a HapusSiswa=<?php echo $row['NomorPendaftaran'];?> class="btn btn-danger HapusSiswa"><li class="fa fa-trash-o"></li> Hapus</a> -->
                          </td>
                     </tr>
                         <?php
@@ -128,43 +124,3 @@
       </div><!-- /.box -->
     </section><!-- /.content -->
 </div>
-<!-- <form method="post" action="http://localhost/SPK_SNMPTN/Admin/TambahSiswa">
-    <div class="modal fade" id="my-modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Tambah Data Siswa</h4>
-                </div>
-                <div class="modal-body center">
-                  <div class="form-group">
-                      <label>Nomor Pendaftaran</label>
-                      <input type="text" name="NomorPendaftaran" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
-                  </div>
-                  <div class="form-group">
-                      <label>NPSN Sekolah</label>
-                      <input type="text" name="NPSNSekolah" class="form-control" required="" placeholder="Masukkan Nomor Pendaftaran">
-                  </div>
-                  <div class="form-group">
-                      <label>Minat</label>
-                      <select class="form-control" name="Minat">
-                      <?php
-                        foreach ($Prodi as $data) {?>
-                          <option value="<?php echo $data['IdProdi']; ?>"><?php echo $data['NamaProdi']; ?></option>
-                        <?php } ?>
-                      </select>
-                  </div>
-                  <?php for ($i = 3; $i < count($FormSiswa); $i++) {?>
-                    <div class="form-group">
-                        <label><?php echo $FormSiswa[$i]['COLUMN_NAME'];?></label>
-                        <input type="text" name="<?php echo $FormSiswa[$i]['COLUMN_NAME'];?>" class="form-control" required="">
-                    </div>
-                  <?php }?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
-                    <button type="submit" class="btn btn-info"> Simpan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form> -->

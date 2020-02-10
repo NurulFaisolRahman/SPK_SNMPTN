@@ -196,7 +196,6 @@
         } else {
           echo "<h3><b>CR = ".$CR." => Tidak Konsisten</b></h3>";
         }
-        include 'PerhitunganSubKriteria.php'
      ?>
   <?php }
   ?>

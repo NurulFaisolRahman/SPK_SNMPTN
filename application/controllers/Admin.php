@@ -10,10 +10,6 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function index(){
-		// $this->load->view('Login');
-	}
-
 	public function Prodi(){
 		$this->load->database();
 		$Data['Prodi'] = $this->db->get('Prodi')->result_array();
@@ -48,91 +44,6 @@ class Admin extends CI_Controller {
 		$this->load->view('Header');
 		$this->load->view('Kriteria',$Data);
 		$this->load->view('Footer');
-	}
-
-	public function TambahKriteria(){
-		$this->load->database();
-		$NamaKriteria = $_POST['NamaKriteriaBaru'];
-		$this->db->insert('Kriteria', array('NamaKriteria' => $NamaKriteria));
-		$query = "ALTER TABLE DataSiswa ADD COLUMN $NamaKriteria Varchar(30)";
-	  $this->db->query($query);
-		echo 'ok';
-	}
-
-	public function UpdateKriteria(){
-	  $this->load->database();
-	  $this->db->where('IdKriteria', $_POST['EditIdKriteria']);
-	  $this->db->update('Kriteria', array('NamaKriteria' => $_POST['EditNamaKriteria']));
-	  // $NamaKriteria = $_POST['EditNamaKriteria'];
-	  // $NamaKriteriaLama = $_POST['NamaKriteriaLama'];
-	  // $query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaKriteriaLama $NamaKriteria Varchar(30)";
-	  // $this->db->query($query);
-	  echo 'ok';
-	}
-
-	public function HapusKriteria(){
-	  $this->load->database();
-		$NamaKriteria = $_POST['HapusNamaKriteria'];
-		$query = "ALTER TABLE DataSiswa DROP COLUMN IF EXISTS $NamaKriteria";
-	  $this->db->query($query);
-		$Data = $this->db->get_where('SubKriteria', array('IdKriteria' => $_POST['HapusIdKriteria']))->result_array();
-		foreach ($Data as $key) {
-			$NamaSubKriteria = $key['NamaSubKriteria'];
-			$query = "ALTER TABLE DataSiswa DROP COLUMN IF EXISTS $NamaSubKriteria";
-		  $this->db->query($query);
-		}
-	  $this->db->delete('Kriteria', array('IdKriteria' => $_POST['HapusIdKriteria']));
-		$this->db->delete('SubKriteria', array('IdKriteria' => $_POST['HapusIdKriteria']));
-
-		echo 'ok';
-	}
-
-	public function SubKriteria(){
-	  $this->load->database();
-		$query = "SELECT Kriteria.NamaKriteria,SubKriteria.IdKriteria,SubKriteria.IdSubKriteria,SubKriteria.NamaSubKriteria FROM Kriteria,SubKriteria WHERE Kriteria.IdKriteria = SubKriteria.IdKriteria";
-	  $Data['SubKriteria'] = $this->db->query($query)->result_array();
-		$Data['Kriteria'] = $this->db->get('Kriteria')->result_array();
-		$this->load->view('Header');
-	  $this->load->view('SubKriteria',$Data);
-	  $this->load->view('Footer');
-	}
-
-	public function TambahSubKriteria(){
-	  $this->load->database();
-	  $this->db->insert('SubKriteria', array('IdKriteria' => $_POST['IdKriteriaSub'],'NamaSubKriteria' => $_POST['NamaSubKriteriaBaru']));
-		$NamaSubKriteria = $_POST['NamaSubKriteriaBaru'];
-		$NamaKriteria = $_POST['NamaKriteriaSub'];
-		$query = "ALTER TABLE DataSiswa DROP COLUMN IF EXISTS $NamaKriteria";
-		$this->db->query($query);
-		$query = "ALTER TABLE DataSiswa ADD COLUMN $NamaSubKriteria Varchar(30)";
-	  $this->db->query($query);
-		echo 'ok';
-	}
-
-	public function UpdateSubKriteria(){
-	  $this->load->database();
-	  $this->db->where('IdSubKriteria', $_POST['EditIdSubKriteria']);
-	  $this->db->update('SubKriteria', array('NamaSubKriteria' => $_POST['EditNamaSubKriteria'], 'Status' => $_POST['Status']));
-		// $NamaSubKriteria = $_POST['EditNamaSubKriteria'];
-		// $NamaSubKriteriaLama = $_POST['NamaSubKriteriaLama'];
-		// $query = "ALTER TABLE DataSiswa CHANGE IF EXISTS $NamaSubKriteriaLama $NamaSubKriteria Varchar(30)";
-	 //  $this->db->query($query);
-		echo 'ok';
-	}
-
-	public function HapusSubKriteria(){
-	  $this->load->database();
-	  $this->db->delete('SubKriteria', array('IdSubKriteria' => $_POST['HapusIdSubKriteria']));
-		$NamaSubKriteria = $_POST['NamaSubKriteria'];
-		$NamaKriteria = $_POST['NamaKriteria'];
-		$query = "ALTER TABLE DataSiswa DROP COLUMN $NamaSubKriteria";
-	  $this->db->query($query);
-		$CekKolomKriteria = $this->db->get_where('SubKriteria', array('IdKriteria' => $_POST['IdKriteria']))->num_rows();
-		if ($CekKolomKriteria == 0) {
-			$query = "ALTER TABLE DataSiswa ADD COLUMN $NamaKriteria Varchar(30)";
-		  $this->db->query($query);
-		}
-		echo 'ok';
 	}
 
 	public function Siswa(){
@@ -177,10 +88,10 @@ class Admin extends CI_Controller {
 		$Data['Bobot'] = $this->db->get('Bobot')->result_array();
 		$Data['TotalKriteria'] = $this->db->get('Kriteria')->num_rows();
 		$query = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = 'DataSiswa'";
-	  $Data['FormSiswa'] = $this->db->query($query)->result_array();
+	  	$Data['FormSiswa'] = $this->db->query($query)->result_array();
 		$this->load->view('Header');
-	  $this->load->view('Perhitungan',$Data);
-	  $this->load->view('Footer');
+	  	$this->load->view('Perhitungan',$Data);
+	  	$this->load->view('Footer');
 	}
 
 	public function SimpanBobot(){

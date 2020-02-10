@@ -557,56 +557,56 @@
   }
 
   function TampilkanBobot(){
-    var Index = document.getElementById('BobotHistory').value.split('|');
-    document.getElementById('BobotKriteria1').selectedIndex = Index[0];
-    document.getElementById('BobotKriteria2').selectedIndex = Index[1];
-    document.getElementById('BobotKriteria3').selectedIndex = Index[2];
-    document.getElementById('MataPelajaran1').selectedIndex = Index[3];
-    document.getElementById('MataPelajaran2').selectedIndex = Index[4];
-    document.getElementById('MataPelajaran3').selectedIndex = Index[5];
-    document.getElementById('MataPelajaran4').selectedIndex = Index[6];
-    document.getElementById('MataPelajaran5').selectedIndex = Index[7];
-    document.getElementById('MataPelajaran6').selectedIndex = Index[8];
-    document.getElementById('MataPelajaran7').selectedIndex = Index[9];
-    document.getElementById('MataPelajaran8').selectedIndex = Index[10];
-    document.getElementById('MataPelajaran9').selectedIndex = Index[11];
-    document.getElementById('MataPelajaran10').selectedIndex = Index[12];
-    document.getElementById('MataPelajaran11').selectedIndex = Index[13];
-    document.getElementById('MataPelajaran12').selectedIndex = Index[14];
-    document.getElementById('MataPelajaran13').selectedIndex = Index[15];
-    document.getElementById('MataPelajaran14').selectedIndex = Index[16];
-    document.getElementById('MataPelajaran15').selectedIndex = Index[17];
-    var x = document.getElementById("FormPerhitungan");
-    if (x.style.display === "none") {
-      x.style.display = "grid";
-    } else {
-      x.style.display = "none";
-    }
+    // var Index = document.getElementById('BobotHistory').value.split('|');
+    // document.getElementById('BobotKriteria1').selectedIndex = Index[0];
+    // document.getElementById('BobotKriteria2').selectedIndex = Index[1];
+    // document.getElementById('BobotKriteria3').selectedIndex = Index[2];
+    // document.getElementById('MataPelajaran1').selectedIndex = Index[3];
+    // document.getElementById('MataPelajaran2').selectedIndex = Index[4];
+    // document.getElementById('MataPelajaran3').selectedIndex = Index[5];
+    // document.getElementById('MataPelajaran4').selectedIndex = Index[6];
+    // document.getElementById('MataPelajaran5').selectedIndex = Index[7];
+    // document.getElementById('MataPelajaran6').selectedIndex = Index[8];
+    // document.getElementById('MataPelajaran7').selectedIndex = Index[9];
+    // document.getElementById('MataPelajaran8').selectedIndex = Index[10];
+    // document.getElementById('MataPelajaran9').selectedIndex = Index[11];
+    // document.getElementById('MataPelajaran10').selectedIndex = Index[12];
+    // document.getElementById('MataPelajaran11').selectedIndex = Index[13];
+    // document.getElementById('MataPelajaran12').selectedIndex = Index[14];
+    // document.getElementById('MataPelajaran13').selectedIndex = Index[15];
+    // document.getElementById('MataPelajaran14').selectedIndex = Index[16];
+    // document.getElementById('MataPelajaran15').selectedIndex = Index[17];
+    // var x = document.getElementById("FormPerhitungan");
+    // if (x.style.display === "none") {
+    //   x.style.display = "grid";
+    // } else {
+    //   x.style.display = "none";
+    // }
   }
 
   function SimpanIndexBobot(){
-    var bobot1 = document.getElementById('BobotKriteria1').selectedIndex;
-    var bobot2 = document.getElementById('BobotKriteria2').selectedIndex;
-    var bobot3 = document.getElementById('BobotKriteria3').selectedIndex;
-    var bobot4 = document.getElementById('MataPelajaran1').selectedIndex;
-    var bobot5 = document.getElementById('MataPelajaran2').selectedIndex;
-    var bobot6 = document.getElementById('MataPelajaran3').selectedIndex;
-    var bobot7 = document.getElementById('MataPelajaran4').selectedIndex;
-    var bobot8 = document.getElementById('MataPelajaran5').selectedIndex;
-    var bobot9 = document.getElementById('MataPelajaran6').selectedIndex;
-    var bobot10 = document.getElementById('MataPelajaran7').selectedIndex;
-    var bobot11 = document.getElementById('MataPelajaran8').selectedIndex;
-    var bobot12 = document.getElementById('MataPelajaran9').selectedIndex;
-    var bobot13 = document.getElementById('MataPelajaran10').selectedIndex;
-    var bobot14 = document.getElementById('MataPelajaran11').selectedIndex;
-    var bobot15 = document.getElementById('MataPelajaran12').selectedIndex;
-    var bobot16 = document.getElementById('MataPelajaran13').selectedIndex;
-    var bobot17 = document.getElementById('MataPelajaran14').selectedIndex;
-    var bobot18 = document.getElementById('MataPelajaran15').selectedIndex;
-    var bobot = bobot1+"|"+bobot2+"|"+bobot3+"|"+bobot4+"|"+bobot5+"|"+bobot6+"|"+bobot7+"|"+bobot8+"|"+bobot9+"|"+bobot10+"|"+bobot11+"|"+bobot12+"|"+bobot13+"|"+bobot14+"|"+bobot15+"|"+bobot16+"|"+bobot17+"|"+bobot18;
-    var Data = { BOBOT : bobot };
-    $.post("http://localhost/SPK_SNMPTN/Admin/SimpanBobot", Data);
-    alert('Bobot Berhasil Disimpan')
+    // var bobot1 = document.getElementById('BobotKriteria1').selectedIndex;
+    // var bobot2 = document.getElementById('BobotKriteria2').selectedIndex;
+    // var bobot3 = document.getElementById('BobotKriteria3').selectedIndex;
+    // var bobot4 = document.getElementById('MataPelajaran1').selectedIndex;
+    // var bobot5 = document.getElementById('MataPelajaran2').selectedIndex;
+    // var bobot6 = document.getElementById('MataPelajaran3').selectedIndex;
+    // var bobot7 = document.getElementById('MataPelajaran4').selectedIndex;
+    // var bobot8 = document.getElementById('MataPelajaran5').selectedIndex;
+    // var bobot9 = document.getElementById('MataPelajaran6').selectedIndex;
+    // var bobot10 = document.getElementById('MataPelajaran7').selectedIndex;
+    // var bobot11 = document.getElementById('MataPelajaran8').selectedIndex;
+    // var bobot12 = document.getElementById('MataPelajaran9').selectedIndex;
+    // var bobot13 = document.getElementById('MataPelajaran10').selectedIndex;
+    // var bobot14 = document.getElementById('MataPelajaran11').selectedIndex;
+    // var bobot15 = document.getElementById('MataPelajaran12').selectedIndex;
+    // var bobot16 = document.getElementById('MataPelajaran13').selectedIndex;
+    // var bobot17 = document.getElementById('MataPelajaran14').selectedIndex;
+    // var bobot18 = document.getElementById('MataPelajaran15').selectedIndex;
+    // var bobot = bobot1+"|"+bobot2+"|"+bobot3+"|"+bobot4+"|"+bobot5+"|"+bobot6+"|"+bobot7+"|"+bobot8+"|"+bobot9+"|"+bobot10+"|"+bobot11+"|"+bobot12+"|"+bobot13+"|"+bobot14+"|"+bobot15+"|"+bobot16+"|"+bobot17+"|"+bobot18;
+    // var Data = { BOBOT : bobot };
+    // $.post("http://localhost/SPK_SNMPTN/Admin/SimpanBobot", Data);
+    // alert('Bobot Berhasil Disimpan')
   }
 
 </script>

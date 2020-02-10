@@ -108,7 +108,7 @@
 						<button class="login100-form-btn" id="TombolDaftar">
 							Daftar
 						</button>
-					</div
+					</div>
 
 				</form>
 			</div>
